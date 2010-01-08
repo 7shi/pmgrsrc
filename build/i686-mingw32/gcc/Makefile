@@ -1,6 +1,6 @@
 PKGNAME = $(ARCH_PREFIX)-gcc
 PKGVER  = 4.4.2
-DEPENDS = $(ARCH_PREFIX)/binutils $(ARCH_PREFIX)/runtime $(ARCH_PREFIX)/w32api
+DEPENDS = mpfr $(ARCH_PREFIX)/binutils $(ARCH_PREFIX)/runtime $(ARCH_PREFIX)/w32api
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..

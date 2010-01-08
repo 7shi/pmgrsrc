@@ -1,4 +1,4 @@
-PACKAGES = pmgr
+PACKAGES = pmgr xz tar
 
 TOPDIR = ..
 include $(TOPDIR)/common.mk

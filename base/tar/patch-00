@@ -1,0 +1,21 @@
+--- lib/fseeko.c.orig	2010-01-02 01:07:41.000000000 +0000
++++ lib/fseeko.c	2010-01-02 01:07:46.000000000 +0000
+@@ -72,6 +72,9 @@
+       && fp->_rcount == 0
+       && fp->_wcount == 0
+       && fp->_ungetc_count == 0)
++#elif defined _MINIX
++  if (fp_->_ptr == fp_->_buf
++      && (fp_->_ptr == NULL || fp_->_count == 0))
+ #elif defined _IOERR                /* AIX, HP-UX, IRIX, OSF/1, Solaris, OpenServer, mingw */
+   if (fp_->_ptr == fp_->_base
+       && (fp_->_ptr == NULL || fp_->_cnt == 0))
+@@ -110,7 +113,7 @@
+       fp_->_offset = pos;
+       fp_->_flags |= __SOFF;
+       fp_->_flags &= ~__SEOF;
+-#elif defined __EMX__               /* emx+gcc */
++#elif defined __EMX__ || defined _MINIX /* emx+gcc */
+       fp->_flags &= ~_IOEOF;
+ #elif defined _IOERR                /* AIX, HP-UX, IRIX, OSF/1, Solaris, OpenServer, mingw */
+       fp->_flag &= ~_IOEOF;

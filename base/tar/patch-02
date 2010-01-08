@@ -1,0 +1,13 @@
+--- lib/wcrtomb.c.orig	2010-01-02 01:37:05.000000000 +0000
++++ lib/wcrtomb.c	2010-01-02 01:38:06.000000000 +0000
+@@ -23,6 +23,10 @@
+ #include <errno.h>
+ #include <stdlib.h>
+ 
++#ifndef EILSEQ
++#define EILSEQ 85
++#endif  
++
+ 
+ size_t
+ wcrtomb (char *s, wchar_t wc, mbstate_t *ps)

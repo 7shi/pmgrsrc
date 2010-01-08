@@ -1,0 +1,13 @@
+--- src/print.c.orig	2010-01-02 14:20:10.000000000 +0000
++++ src/print.c	2010-01-02 14:20:57.000000000 +0000
+@@ -222,9 +222,9 @@
+ 			daylight = tm1->tm_isdst;
+ 		}
+ #endif /* HAVE_TM_ISDST */
+-#endif /* HAVE_DAYLIGHT */
+ 		if (daylight)
+ 			t += 3600;
++#endif /* HAVE_DAYLIGHT */
+ 		tm = gmtime(&t);
+ 		if (tm == NULL)
+ 			return "*Invalid time*";

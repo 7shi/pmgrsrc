@@ -1,9 +1,15 @@
 PACKAGES = \
 	distorm \
+	gmp \
 	i386-elf \
 	i686-mingw32 \
+	libtool \
 	mipsel-elf \
-	x86_64-mingw32
+	mkisofs \
+	mpfr \
+	nasm \
+	x86_64-mingw32 \
+	yasm
 
 TOPDIR = ..
 include $(TOPDIR)/common.mk

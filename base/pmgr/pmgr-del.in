@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # This file is in the public domain.
 
 PKGDEST=@PKGDEST@
@@ -43,9 +43,9 @@ do
 	if [ -f $PKGDEST/$PKGDBDIR/files/$pkg ]
 	then
 		echo "removing files..."
-		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/files/$pkg | sh $0 -f
+		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/files/$pkg | bash $0 -f
 		echo "removing directories..."
-		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/files/$pkg | sort -r | sh $0 -d
+		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/files/$pkg | sort -r | bash $0 -d
 		rm -f $PKGDEST/$PKGDBDIR/files/$pkg
 		rm -f $PKGDEST/$PKGDBDIR/versions/$pkg
 		rm -f $PKGDEST/$PKGDBDIR/depends/$pkg

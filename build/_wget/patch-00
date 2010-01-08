@@ -1,0 +1,13 @@
+--- src/connect.c.orig	2010-01-02 02:45:07.000000000 +0000
++++ src/connect.c	2010-01-02 02:46:25.000000000 +0000
+@@ -724,6 +724,10 @@
+   return select_fd (fd, timeout, wait_for);
+ }
+ 
++#ifndef MSG_PEEK
++#define MSG_PEEK 2
++#endif
++
+ static int
+ sock_peek (int fd, char *buf, int bufsize)
+ {

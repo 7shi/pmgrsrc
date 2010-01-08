@@ -1,4 +1,4 @@
-PKGDEST     = /opt/pmgr
+PKGDEST     = /usr/pmgr
 PKGDBDIR    = share/pmgr
 PKGCMDNAME  = pmgr
 PKGSUFFIX   = pmgr
@@ -7,8 +7,8 @@ EXTRACT     = pmgr-extract
 PKGCOMPRESS = xz
 DISTDIR     = $(TOPDIR)/distfiles
 PKGDIR      = $(TOPDIR)/packages
-PKGCPPFLAGS = -I$(PKGDEST)/include -I/usr/pkg/include
-PKGLDFLAGS  = -L$(PKGDEST)/lib -L/usr/pkg/lib -Wl,-R$(PKGDEST)/lib -Wl,-R/usr/pkg/lib
+PKGCPPFLAGS = -I$(PKGDEST)/include -I/usr/local/include
+PKGLDFLAGS  = -L$(PKGDEST)/lib -L/usr/local/lib/gcc -Wl,-R$(PKGDEST)/lib -Wl,-R/usr/local/lib/gcc
 COMMANDS    = all fetch extract config build \
               package repackage install reinstall uninstall \
               clean distclean

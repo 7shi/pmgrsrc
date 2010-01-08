@@ -1,0 +1,13 @@
+--- binutils/resrc.c.orig	2010-01-02 19:40:13.000000000 +0000
++++ binutils/resrc.c	2010-01-02 19:40:48.000000000 +0000
+@@ -40,6 +40,10 @@
+ 
+ #ifdef HAVE_SYS_WAIT_H
+ #include <sys/wait.h>
++#ifdef _MINIX
++#undef WIFSIGNALED
++#define WIFSIGNALED(s) ((((unsigned int)(s)-1) & 0xFFFF) < 0xFF)
++#endif
+ #else /* ! HAVE_SYS_WAIT_H */
+ #if ! defined (_WIN32) || defined (__CYGWIN__)
+ #ifndef WIFEXITED

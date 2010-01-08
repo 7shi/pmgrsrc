@@ -1,0 +1,13 @@
+--- binutils/dlltool.c.orig	2010-01-02 17:46:11.000000000 +0000
++++ binutils/dlltool.c	2010-01-02 19:04:25.000000000 +0000
+@@ -277,6 +277,10 @@
+ 
+ #ifdef HAVE_SYS_WAIT_H
+ #include <sys/wait.h>
++#ifdef _MINIX
++#undef WIFSIGNALED
++#define WIFSIGNALED(s) ((((unsigned int)(s)-1) & 0xFFFF) < 0xFF)
++#endif
+ #else /* ! HAVE_SYS_WAIT_H */
+ #if ! defined (_WIN32) || defined (__CYGWIN32__)
+ #ifndef WIFEXITED
