@@ -1,8 +1,8 @@
 #!/bin/sh
 # This file is in the public domain.
 
-PKGDEST=@@PKGDEST@@
-PKGDBDIR=@@PKGDBDIR@@
+PKGDEST=@PKGDEST@
+PKGDBDIR=@PKGDBDIR@
 
 if [ $# -eq 0 ]
 then
@@ -24,7 +24,7 @@ do
 		fi
 		echo "check package: $pkg"
 		depfile=$PKGDBDIR/depends/$pkgname
-		pmgr-extract j $pkg -C $PKGDEST $depfile || exit
+		pmgr-extract $pkg -C $PKGDEST $depfile || exit
 		deps=`cat $PKGDEST/$depfile`
 		for dep in $deps
 		do
@@ -54,7 +54,7 @@ do
 			fi
 		done
 		echo "install package: $pkg"
-		pmgr-extract j $pkg -C $PKGDEST || exit
+		pmgr-extract $pkg -C $PKGDEST || exit
 		echo "done."
 		echo "* to show installed files: pmgr-ls $pkgname"
 	else

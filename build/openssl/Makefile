@@ -1,12 +1,12 @@
-PKGNAME = cvs
-PKGVER  = 1.11.22
+PKGNAME = openssl
+PKGVER  = 0.9.8e
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCE  = $(WORKDIR).tar.gz
-SRCURL  = http://ftp.gnu.org/non-gnu/$(PKGNAME)/source/stable/$(PKGVER)/$(SOURCE)
+SRCURL  = http://www.openssl.org/source/$(SOURCE)
 
 all: build
 
@@ -27,7 +27,7 @@ all: build
 
 .config: .patch
 	@echo && echo ===== config =====
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
+	cd $(WORKDIR) && ./Configure gcc --prefix=$(PKGDEST)
 	touch $@
 
 .build: .config
@@ -38,9 +38,10 @@ all: build
 .pkginst: .build
 	@echo && echo ===== pkginst =====
 	rm -rf dest
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	strip dest/bin/cvs
-	rm dest/bin/rcs2log
+	gmake -C $(WORKDIR) INSTALL_PREFIX=`pwd`/dest install
+	mv dest$(PKGDEST)/* dest
+	rm -rf dest/`echo $(PKGDEST) | sed -e "s|^/||" | sed -e "s|/.*$$||" | sed -e "s|^|/|"`
+	strip dest/bin/openssl
 	touch $@
 
 include $(TOPDIR)/pmgr.mk

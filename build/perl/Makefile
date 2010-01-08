@@ -18,7 +18,7 @@ all: build
 
 .extract: .fetch
 	@echo && echo ===== extract =====
-	pmgr-extract j $(DISTDIR)/$(SOURCE)
+	pmgr-extract $(DISTDIR)/$(SOURCE)
 	touch $@
 
 .patch: .extract
@@ -41,7 +41,7 @@ all: build
 	gmake -C $(WORKDIR) DISTDIR="`pwd`/dest" INSTALLFLAGS="--man1dir=`pwd`/dest$(PKGDEST)/lib/perl5/man/man1 --man1ext=1 --man3dir=`pwd`/dest$(PKGDEST)/lib/perl5/man/man3 --man3ext=3" install
 	mv dest$(PKGDEST)/* dest
 	rm -rf dest/`echo $(PKGDEST) | sed -e "s|^/||" | sed -e "s|/.*$$||" | sed -e "s|^|/|"`
-	#strip dest/bin/perl dest/bin/perl$(PKGVER)
+	cd dest/bin && strip perl perl$(PKGVER)
 	touch $@
 
 include $(TOPDIR)/pmgr.mk

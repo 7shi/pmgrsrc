@@ -19,7 +19,7 @@ all: build
 
 .extract: .fetch
 	@echo && echo ===== extract =====
-	pmgr-extract z $(DISTDIR)/$(SOURCE)
+	pmgr-extract $(DISTDIR)/$(SOURCE)
 	touch $@
 
 .patch: .extract

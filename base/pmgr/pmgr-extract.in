@@ -1,12 +1,23 @@
 #!/bin/sh
 # This file is in the public domain.
 
-if [ $# -gt 1 ]
+if [ $# -gt 0 ]
 then
-	type=$1
-	shift
 	target=$1
 	shift
+	case $target in
+		z | j)
+			type=$target;
+			target=$1
+			shift
+			;;
+		*.tar.gz | *.tgz)
+			type=z
+			;;
+		*.tar.bz2 | *.tbz | *.pmgr)
+			type=j
+			;;
+	esac
 
 	case $type in
 		z)

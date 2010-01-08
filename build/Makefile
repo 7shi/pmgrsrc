@@ -1,7 +1,7 @@
 PACKAGES = \
-	zlib \
+	zlib libresolv libcrypt \
 	libiconv gettext \
-	wget \
+	wget openssl openssh \
 	bash zsh \
 	cvs subversion \
 	texinfo m4 bison flex \

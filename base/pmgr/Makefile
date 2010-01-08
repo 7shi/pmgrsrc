@@ -12,6 +12,8 @@ patch config package repackage:
 install reinstall: $(TARGETS)
 	mkdir -p $(PKGDEST)/bin
 	install -c -m 0755 $(TARGETS) $(PKGDEST)/bin
+	mkdir -p $(PKGDEST)/include
+	cp limits.h $(PKGDEST)/include
 
 uninstall:
 	cd $(PKGDEST)/bin && rm -f $(TARGETS)
@@ -22,7 +24,7 @@ $(PKGCMDNAME)-ls: $(PKGCMDNAME)-ls.in $(TOPDIR)/common.mk
 $(PKGCMDNAME)-extract: $(PKGCMDNAME)-extract.in $(TOPDIR)/common.mk
 
 $(SCRIPTS):
-	sed -e 's|@@PKGDEST@@|$(PKGDEST)|' -e 's|@@PKGDBDIR@@|$(PKGDBDIR)|' $@.in > $@
+	sed -e 's|@PKGDEST@|$(PKGDEST)|' -e 's|@PKGDBDIR@|$(PKGDBDIR)|' $@.in > $@
 	chmod 755 $@
 
 $(PKGCMDNAME)-sizecat: sizecat.c

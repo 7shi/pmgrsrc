@@ -1,12 +1,12 @@
-PKGNAME = cvs
-PKGVER  = 1.11.22
+PKGNAME = python
+PKGVER  = 2.5
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 
-WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.gz
-SRCURL  = http://ftp.gnu.org/non-gnu/$(PKGNAME)/source/stable/$(PKGVER)/$(SOURCE)
+WORKDIR = Python-$(PKGVER)
+SOURCE  = $(WORKDIR).tar.bz2
+SRCURL  = http://www.python.org/ftp/$(PKGNAME)/$(PKGVER)/$(SOURCE)
 
 all: build
 
@@ -23,11 +23,13 @@ all: build
 
 .patch: .extract
 	@echo && echo ===== patch =====
+	-patch -p0 -d $(WORKDIR) < patch-al
+	cd $(WORKDIR) && cp Makefile.pre.in Makefile.pre.in.orig && cat Makefile.pre.in.orig | sed -e "s/@BUILDEXEEXT@/.exe/" > Makefile.pre.in
 	touch $@
 
 .config: .patch
 	@echo && echo ===== config =====
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
+	cd $(WORKDIR) && CC="gcc -D_ALL_SOURCE" ./configure --prefix=$(PKGDEST)
 	touch $@
 
 .build: .config
@@ -38,9 +40,10 @@ all: build
 .pkginst: .build
 	@echo && echo ===== pkginst =====
 	rm -rf dest
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	strip dest/bin/cvs
-	rm dest/bin/rcs2log
+	-gmake -k -C $(WORKDIR) prefix=`pwd`/dest install
+	cd dest/bin && rm python *-config
+	strip dest/bin/*
+	cd dest/bin && ln -s $(PKGNAME)$(PKGVER) $(PKGNAME)
 	touch $@
 
 include $(TOPDIR)/pmgr.mk

@@ -36,7 +36,7 @@ all: build
 .pkginst: .build
 	@echo && echo ===== pkginst =====
 	mkdir -p dest/$(ARCH_PREFIX)
-	pmgr-extract z $(DISTDIR)/$(SOURCE) -C dest/$(ARCH_PREFIX)
+	pmgr-extract $(DISTDIR)/$(SOURCE) -C dest/$(ARCH_PREFIX)
 	touch $@
 
 include $(TOPDIR)/pmgr.mk

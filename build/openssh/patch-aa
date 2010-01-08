@@ -1,0 +1,44 @@
+--- atomicio.c.orig	Fri Mar  2 20:27:58 2007
++++ atomicio.c	Fri Mar  2 20:29:59 2007
+@@ -76,12 +76,13 @@
+ {
+ 	size_t pos = 0, rem;
+ 	ssize_t res;
+-	struct iovec iov_array[IOV_MAX], *iov = iov_array;
++	struct iovec *iov;
+ 
+ 	if (iovcnt > IOV_MAX) {
+ 		errno = EINVAL;
+ 		return 0;
+ 	}
++	iov = (struct iovec *)malloc(sizeof(struct iovec) * IOV_MAX);
+ 	/* Make a copy of the iov array because we may modify it below */
+ 	memcpy(iov, _iov, iovcnt * sizeof(*_iov));
+ 
+@@ -91,9 +92,11 @@
+ 		case -1:
+ 			if (errno == EINTR || errno == EAGAIN)
+ 				continue;
++			free(iov);
+ 			return 0;
+ 		case 0:
+ 			errno = EPIPE;
++			free(iov);
+ 			return pos;
+ 		default:
+ 			rem = (size_t)res;
+@@ -107,6 +110,7 @@
+ 			/* This shouldn't happen... */
+ 			if (rem > 0 && (iovcnt <= 0 || rem > iov[0].iov_len)) {
+ 				errno = EFAULT;
++				free(iov);
+ 				return 0;
+ 			}
+ 			if (iovcnt == 0)
+@@ -116,5 +120,6 @@
+ 			iov[0].iov_len -= rem;
+ 		}
+ 	}
++	free(iov);
+ 	return pos;
+ }

@@ -1,8 +1,8 @@
 #!/bin/sh
 # This file is in the public domain.
 
-PKGDEST=@@PKGDEST@@
-PKGDBDIR=@@PKGDBDIR@@
+PKGDEST=@PKGDEST@
+PKGDBDIR=@PKGDBDIR@
 
 if [ $# -eq 0 ]
 then

@@ -1,12 +1,12 @@
-PKGNAME = cvs
-PKGVER  = 1.11.22
+PKGNAME = libresolv
+PKGVER  = 20070306
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.gz
-SRCURL  = http://ftp.gnu.org/non-gnu/$(PKGNAME)/source/stable/$(PKGVER)/$(SOURCE)
+SOURCE  = $(WORKDIR).tar.bz2
+SRCURL  = http://wikki.sakura.ne.jp/files/$(SOURCE)
 
 all: build
 
@@ -27,7 +27,6 @@ all: build
 
 .config: .patch
 	@echo && echo ===== config =====
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 	touch $@
 
 .build: .config
@@ -38,9 +37,7 @@ all: build
 .pkginst: .build
 	@echo && echo ===== pkginst =====
 	rm -rf dest
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	strip dest/bin/cvs
-	rm dest/bin/rcs2log
+	gmake -C $(WORKDIR) DESTDIR=`pwd`/dest install
 	touch $@
 
 include $(TOPDIR)/pmgr.mk
