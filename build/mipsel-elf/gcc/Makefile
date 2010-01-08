@@ -19,13 +19,13 @@ do-patch:
 
 do-config:
 	mkdir -p $(WORKDIR)/build
-	cd $(WORKDIR)/build && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
+	cd $(WORKDIR)/build && CPPFLAGS="$(PKGCPPFLAGS)" LDFLAGS="$(PKGLDFLAGS)" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
 
 do-build:
-	cd $(WORKDIR)/build && make CPPFLAGS=-I$(PKGDEST)/include LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" all-target-libgcc
+	cd $(WORKDIR)/build && gmake CPPFLAGS="$(PKGCPPFLAGS)" LDFLAGS="$(PKGLDFLAGS)" all-target-libgcc
 
 do-pkginst:
-	cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install-gcc
-	cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install-target-libgcc
+	cd $(WORKDIR)/build && gmake prefix=`pwd`/../../dest install-gcc
+	cd $(WORKDIR)/build && gmake prefix=`pwd`/../../dest install-target-libgcc
 	for exe in c++ cpp g++ gcc gcc-$(PKGVER) gcov; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
 	strip dest/libexec/gcc/$(ARCH_PREFIX)/$(PKGVER)/[cj]*

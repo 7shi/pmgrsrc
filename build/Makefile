@@ -1,6 +1,5 @@
 PACKAGES = \
 	distorm \
-	gtar \
 	i386-elf \
 	i686-mingw32 \
 	mipsel-elf \

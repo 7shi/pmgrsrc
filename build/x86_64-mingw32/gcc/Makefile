@@ -19,12 +19,12 @@ do-patch:
 
 do-config:
 	mkdir -p $(WORKDIR)/build
-	cd $(WORKDIR)/build && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
+	cd $(WORKDIR)/build && CPPFLAGS="$(PKGCPPFLAGS)" LDFLAGS="$(PKGLDFLAGS)" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
-	cd $(WORKDIR)/build && make CPPFLAGS=-I$(PKGDEST)/include LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib"
+	cd $(WORKDIR)/build && gmake CPPFLAGS="$(PKGCPPFLAGS)" LDFLAGS="$(PKGLDFLAGS)"
 
 do-pkginst:
-	cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install
+	cd $(WORKDIR)/build && gmake prefix=`pwd`/../../dest install
 	for exe in c++ cpp g++ gcc gcc-$(PKGVER) gcov; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
 	strip dest/libexec/gcc/$(ARCH_PREFIX)/$(PKGVER)/[cj]*

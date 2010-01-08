@@ -15,11 +15,11 @@ do-extract: std-extract
 do-patch: #fix-configure
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
+	cd $(WORKDIR) && CPPFLAGS="$(PKGCPPFLAGS)" LDFLAGS="$(PKGLDFLAGS)" ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
 
 do-build:
-	cd $(WORKDIR) && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS=-Wl,-R$(PKGDEST)/lib make
+	cd $(WORKDIR) && CPPFLAGS="$(PKGCPPFLAGS)" LDFLAGS="$(PKGLDFLAGS)" gmake
 
 do-pkginst:
-	cd $(WORKDIR) && make prefix=`pwd`/../dest install
+	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	strip dest/bin/* dest/$(ARCH_PREFIX)/bin/*
