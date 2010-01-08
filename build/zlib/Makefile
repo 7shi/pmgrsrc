@@ -14,7 +14,8 @@ do-extract: std-extract
 do-patch:
 
 do-config:
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --shared
+	#cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --shared
+	cd $(WORKDIR) && CFLAGS=-g ./configure --prefix=$(PKGDEST) --shared
 
 do-build:
 	cd $(WORKDIR) && gmake all libz.a

@@ -1,0 +1,11 @@
+--- src/Makefile.in.orig	Sun Sep  7 15:26:10 2008
++++ src/Makefile.in	Sun Sep  7 15:29:19 2008
+@@ -230,7 +230,7 @@
+          -DLOCALSTATEDIR="\"$(localstatedir)\"" \
+          -DLOCALEDIR="\"$(localedir)\""
+ 
+-jwhois_LDADD = $(top_srcdir)/gl/libgnu.a
++jwhois_LDADD = $(top_srcdir)/gl/libgnu.a @LIBINTL@
+ AM_CFLAGS = $(jwhois_CFLAGS)
+ INCLUDES = -I$(top_srcdir)/include -I$(top_srcdir)/intl -I$(top_srcdir)/gl
+ all: all-am

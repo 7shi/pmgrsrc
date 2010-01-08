@@ -1,5 +1,5 @@
 PKGNAME = libiconv
-PKGVER  = 1.11
+PKGVER  = 1.13
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
@@ -22,3 +22,4 @@ do-build:
 do-pkginst:
 	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	strip dest/bin/*
+	for lib in dest/lib/*.so.*; do if [ ! -L $$lib ]; then strip $$lib; chmod 755 $$lib; fi; done

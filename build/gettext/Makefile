@@ -1,5 +1,5 @@
 PKGNAME = gettext
-PKGVER  = 0.16.1
+PKGVER  = 0.17
 DEPENDS = libiconv
 
 TOPDIR  = ../..
@@ -24,3 +24,4 @@ do-build:
 do-pkginst:
 	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	strip dest/bin/msg*
+	for lib in dest/lib/*.so.*; do if [ ! -L $$lib ]; then strip $$lib; chmod 755 $$lib; fi; done

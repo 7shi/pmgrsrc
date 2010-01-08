@@ -1,23 +1,11 @@
---- setup.py.orig	Thu Aug 10 08:42:18 2006
-+++ setup.py	Sat Mar 10 23:34:24 2007
-@@ -203,6 +203,11 @@
-             self.announce('WARNING: skipping import check for Cygwin-based "%s"'
-                 % ext.name)
-             return
-+        # Workaround for Interix
-+        if self.get_platform() == 'interix':
-+            self.announce('WARNING: skipping import check for Interix-based "%s"'
-+                % ext.name)
-+            return
-         ext_filename = os.path.join(
-             self.build_lib,
-             self.get_ext_filename(self.get_ext_fullname(ext.name)))
-@@ -237,7 +242,7 @@
+--- Modules/fcntlmodule.c.orig	Thu Nov 12 10:45:10 2009
++++ Modules/fcntlmodule.c	Thu Nov 12 10:47:53 2009
+@@ -563,7 +563,7 @@
+         if (ins(d, "DN_MULTISHOT", (long)DN_MULTISHOT)) return -1;
+ #endif
  
-     def get_platform(self):
-         # Get value of sys.platform
--        for platform in ['cygwin', 'beos', 'darwin', 'atheos', 'osf1']:
-+        for platform in ['cygwin', 'beos', 'darwin', 'atheos', 'osf1', 'interix']:
-             if sys.platform.startswith(platform):
-                 return platform
-         return sys.platform
+-#ifdef HAVE_STROPTS_H
++#if 0 //def HAVE_STROPTS_H
+ 	/* Unix 98 guarantees that these are in stropts.h. */
+ 	INS(I_PUSH);
+ 	INS(I_POP);

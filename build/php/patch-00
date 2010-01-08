@@ -1,0 +1,60 @@
+--- configure.orig	Mon Jul 28 00:24:33 2008
++++ configure	Mon Jul 28 01:06:54 2008
+@@ -12672,6 +12672,8 @@
+     PTHREAD_FLAGS=-D_REENTRANT;;
+   *sco*)
+     PTHREAD_FLAGS=-D_REENTRANT;;
++  *interix*)
++    PTHREAD_FLAGS=-D_REENTRANT;;
+   esac
+ 
+   if test -n "$PTHREAD_FLAGS"; then
+@@ -107981,6 +107983,10 @@
+ sysv5OpenUNIX8* | sysv5UnixWare7* | sysv5uw[78]* | unixware7* | sysv4*uw2*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
++
++interix*)
++  lt_cv_deplibs_check_method=pass_all
++  ;;
+ esac
+ 
+ fi
+@@ -109763,6 +109769,10 @@
+       hardcode_shlibpath_var=no
+       ;;
+ 
++    interix*)
++      archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
++      ;;
++
+     *)
+       if $LD --help 2>&1 | grep ': supported targets:.* elf' > /dev/null; then
+ 	archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+@@ -110691,7 +110701,7 @@
+   esac
+   ;;
+ 
+-gnu*)
++gnu* | interix*)
+   version_type=linux
+   need_lib_prefix=no
+   need_version=no
+@@ -112748,7 +112758,7 @@
+   freebsd-elf*)
+     archive_cmds_need_lc_CXX=no
+     ;;
+-  freebsd* | kfreebsd*-gnu | dragonfly*)
++  freebsd* | kfreebsd*-gnu | dragonfly* | interix*)
+     # FreeBSD 3 and later use GNU C++ and GNU ld with standard ELF
+     # conventions
+     ld_shlibs_CXX=yes
+@@ -114163,7 +114173,7 @@
+   esac
+   ;;
+ 
+-gnu*)
++gnu* | interix*)
+   version_type=linux
+   need_lib_prefix=no
+   need_version=no

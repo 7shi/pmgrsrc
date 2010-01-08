@@ -1,0 +1,25 @@
+--- init2.c.orig	Mon Oct  5 19:37:20 2009
++++ init2.c	Mon Oct  5 19:41:33 2009
+@@ -36,10 +36,12 @@
+   MPFR_ASSERTN( BITS_PER_MP_LIMB == BYTES_PER_MP_LIMB * CHAR_BIT
+                 && sizeof(mp_limb_t) == BYTES_PER_MP_LIMB );
+ 
++#if 0
+   /* Check for correct EXP NAN, ZERO & INF in both mpfr.h and in mpfr-impl.h */
+   MPFR_ASSERTN( __MPFR_EXP_NAN  == MPFR_EXP_NAN  );
+   MPFR_ASSERTN( __MPFR_EXP_ZERO == MPFR_EXP_ZERO );
+   MPFR_ASSERTN( __MPFR_EXP_INF  == MPFR_EXP_INF  );
++#endif
+ 
+   MPFR_ASSERTN( MPFR_EMAX_MAX <= (MPFR_EXP_MAX >> 1)  );
+   MPFR_ASSERTN( MPFR_EMIN_MIN >= -(MPFR_EXP_MAX >> 1) );
+@@ -47,7 +49,9 @@
+   /* p=1 is not allowed since the rounding to nearest even rule requires at
+      least two bits of mantissa: the neighbours of 3/2 are 1*2^0 and 1*2^1,
+      which both have an odd mantissa */
++#if 0
+   MPFR_ASSERTN(p >= MPFR_PREC_MIN && p <= MPFR_PREC_MAX);
++#endif
+ 
+   xsize = (mp_size_t) ((p - 1) / BITS_PER_MP_LIMB) + 1;
+   tmp   = (mp_ptr) (*__gmp_allocate_func)(MPFR_MALLOC_SIZE(xsize));

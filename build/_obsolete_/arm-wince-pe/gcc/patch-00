@@ -1,0 +1,11 @@
+--- libobjc/Makefile.in.orig	Sat Jul 26 10:07:10 2008
++++ libobjc/Makefile.in	Sat Jul 26 10:14:47 2008
+@@ -75,7 +75,7 @@
+ CFLAGS = @CFLAGS@
+ WARN_CFLAGS = -W -Wall -Wwrite-strings -Wstrict-prototypes
+ ALL_CFLAGS = -I. -I$(srcdir) $(CPPFLAGS) $(DEFS) $(CFLAGS) $(WARN_CFLAGS) \
+-	-DIN_GCC -DIN_TARGET_LIBS -fno-strict-aliasing -fexceptions
++	-DIN_GCC -DIN_TARGET_LIBS -fno-strict-aliasing -fexceptions -D__COREDLL__
+ 
+ # Libtool
+ # The following strings describe the version of the obj-C library 

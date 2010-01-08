@@ -1,0 +1,11 @@
+--- ld/emultempl/pep.em.orig	Wed Nov 25 17:22:20 2009
++++ ld/emultempl/pep.em	Wed Nov 25 17:22:31 2009
+@@ -510,7 +510,7 @@
+ {
+   char *end;
+ 
+-  set_pep_name (name,  (bfd_vma) strtoull (optarg, &end, 0));
++  set_pep_name (name,  (bfd_vma) strtoul (optarg, &end, 0));
+ 
+   if (end == optarg)
+     einfo (_("%P%F: invalid hex number for PE parameter '%s'\n"), optarg);

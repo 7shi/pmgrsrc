@@ -1,10 +1,23 @@
---- Modules/_ctypes/libffi/configure.orig	Sat Mar 10 09:06:10 2007
-+++ Modules/_ctypes/libffi/configure	Sat Mar 10 09:06:44 2007
-@@ -3487,6 +3487,7 @@
- i*86-*-netbsdelf* | i*86-*-knetbsd*-gnu) TARGET=X86; TARGETDIR=x86;;
- i*86-*-openbsd*) TARGET=X86; TARGETDIR=x86;;
- i*86-*-rtems*) TARGET=X86; TARGETDIR=x86;;
-+i*86-*-interix*) TARGET=X86; TARGETDIR=x86;;
- i*86-*-win32*) TARGET=X86_WIN32; TARGETDIR=x86;;
- i*86-*-cygwin*) TARGET=X86_WIN32; TARGETDIR=x86;;
- i*86-*-mingw*) TARGET=X86_WIN32; TARGETDIR=x86;;
+--- setup.py.orig	Thu Nov 12 10:21:23 2009
++++ setup.py	Thu Nov 12 10:24:06 2009
+@@ -267,6 +267,11 @@
+             self.announce('WARNING: skipping import check for Cygwin-based "%s"'
+                 % ext.name)
+             return
++        # Workaround for Interix
++        if self.get_platform() == 'interix':
++            self.announce('WARNING: skipping import check for Cygwin-based "%s"'
++                % ext.name)
++            return
+         ext_filename = os.path.join(
+             self.build_lib,
+             self.get_ext_filename(self.get_ext_fullname(ext.name)))
+@@ -303,7 +308,7 @@
+ 
+     def get_platform(self):
+         # Get value of sys.platform
+-        for platform in ['cygwin', 'beos', 'darwin', 'atheos', 'osf1']:
++        for platform in ['cygwin', 'beos', 'darwin', 'atheos', 'osf1', 'interix']:
+             if sys.platform.startswith(platform):
+                 return platform
+         return sys.platform

@@ -1,16 +1,39 @@
 PACKAGES = \
-	zlib \
-	perl python \
-	ginstall gtar \
-	m4 autoconf automake libtool \
-	texinfo bison flex \
-	libiconv gettext readline \
-	openssl openssh \
-	bash zsh \
-	cvs subversion \
+	arm-linux-gnueabi \
+	autoconf \
+	automake \
+	bash \
+	bison \
+	cvs \
+	distorm \
+	flex \
+	gettext \
+	ginstall \
+	gmp \
+	gsed \
+	gtar \
+	libiconv \
+	libtool \
+	libxml2 \
+	lzma \
+	m4 \
+	mercurial \
+	mingw \
 	mkisofs \
-	nasm yasm distorm \
-	mingw i386-elf x86_64-elf
+	mpfr \
+	nasm \
+	openssh \
+	openssl \
+	php \
+	python \
+	readline \
+	subversion \
+	texinfo \
+	x86_64-mingw32 \
+	xz \
+	yasm \
+	zlib \
+	zsh
 
 TOPDIR = ..
 include $(TOPDIR)/common.mk

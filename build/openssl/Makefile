@@ -1,7 +1,7 @@
 # cf. http://www.hakusan.tsg.ne.jp/tjkawa/lib/interix/simplymake.jsp
 
 PKGNAME = openssl
-PKGVER  = 0.9.7m
+PKGVER  = 0.9.8l
 #BLDDEPS = perl
 
 TOPDIR  = ../..
@@ -10,7 +10,8 @@ include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCES = $(WORKDIR).tar.gz
-SRCURL  = http://www.openssl.org/source
+SRCURL  = ftp://ftp.infoscience.co.jp/pub/Crypto/SSL/openssl/source
+#SRCURL  = http://www.openssl.org/source
 
 do-fetch: std-fetch
 do-extract: std-extract

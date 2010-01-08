@@ -1,0 +1,12 @@
+--- bfd/configure.orig	Fri Jul 25 00:58:12 2008
++++ bfd/configure	Fri Jul 25 00:59:04 2008
+@@ -22931,6 +22931,9 @@
+ fi
+ 
+ sed 's/^ *//' >> tmp-stdint.h <<EOF
++  #define __uint8_t_defined
++  #define __uint16_t_defined
++  #define __uint32_t_defined
+   /* glibc uses these symbols as guards to prevent redefinitions.  */
+   #ifdef __int8_t_defined
+   #define _INT8_T

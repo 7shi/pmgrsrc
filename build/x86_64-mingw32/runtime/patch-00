@@ -1,0 +1,23 @@
+--- x86_64-w64-mingw32/include/intrin.h.orig	Mon Oct  5 17:23:40 2009
++++ x86_64-w64-mingw32/include/intrin.h	Mon Oct  5 17:24:17 2009
+@@ -27,16 +27,16 @@
+ /* Make sure _mm_malloc and _mm_free are defined.  */
+ #include <malloc.h>
+ #endif
+-#include <x86intrin.h>
++/*#include <x86intrin.h>*/
+ #endif
+ 
+-#ifndef __MMX__
++#if 1/*ndef __MMX__*/
+ typedef union __m64 { char v[7]; } __m64;
+ #endif
+-#ifndef __SSE__
++#if 1/*ndef __SSE__*/
+ typedef union __m128 { char v[16]; } __m128;
+ #endif
+-#ifndef __SSE2__
++#if 1/*ndef __SSE2__*/
+ typedef union __m128d { char v[16]; } __m128d;
+ typedef union __m128i { char v[16]; } __m128i;
+ #endif

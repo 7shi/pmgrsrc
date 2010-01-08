@@ -1,5 +1,6 @@
 PKGNAME = gtar
-PKGVER  = 1.16.1
+PKGVER  = 1.22
+DEPENDS = xz
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk

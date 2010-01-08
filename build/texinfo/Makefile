@@ -1,11 +1,12 @@
 PKGNAME = texinfo
-PKGVER  = 4.8a
+PKGVER  = 4.13a
+DEPENDS = gettext
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
-WORKDIR = $(PKGNAME)-4.8
+WORKDIR = $(PKGNAME)-4.13
 SOURCES = $(PKGNAME)-$(PKGVER).tar.gz
 SRCURL  = ftp://ftp.gnu.org/gnu/$(PKGNAME)
 
@@ -14,7 +15,7 @@ do-extract: std-extract
 do-patch: fix-configure
 
 do-config:
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) LDFLAGS=-Wl,-R$(PKGDEST)/lib
+	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) LDFLAGS="-Wl,-R$(PKGDEST)/lib"
 
 do-build:
 	cd $(WORKDIR) && gmake

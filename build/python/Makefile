@@ -1,5 +1,5 @@
 PKGNAME = python
-PKGVER  = 2.5
+PKGVER  = 2.6.4
 BLDDEPS = ginstall
 DEPENDS = readline
 
@@ -26,5 +26,5 @@ do-build:
 do-pkginst:
 	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	cd dest/bin && rm python *-config
-	strip dest/bin/$(PKGNAME)$(PKGVER)
-	cd dest/bin && ln -s $(PKGNAME)$(PKGVER) $(PKGNAME)
+	strip dest/bin/$(PKGNAME)2.6
+	cd dest/bin && ln -s $(PKGNAME)2.6 $(PKGNAME)

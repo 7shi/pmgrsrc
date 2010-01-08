@@ -19,3 +19,7 @@ all:
 	@echo "% $(PKGCMDNAME)-ls [package-name]"
 	@echo
 	@echo "Thank you!"
+
+clean:
+	cd base && $(MAKE) clean
+	cd build && $(MAKE) clean

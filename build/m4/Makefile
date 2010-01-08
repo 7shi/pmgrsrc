@@ -1,5 +1,5 @@
 PKGNAME = m4
-PKGVER  = 1.4.8
+PKGVER  = 1.4.13
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk

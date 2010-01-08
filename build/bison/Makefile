@@ -1,6 +1,6 @@
 PKGNAME = bison
 PKGVER  = 2.3
-DEPENDS = m4
+DEPENDS = m4 gettext
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
@@ -18,7 +18,7 @@ do-extract: std-extract
 do-patch: fix-configure
 
 do-config:
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
+	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) LDFLAGS="-Wl,-R$(PKGDEST)/lib"
 
 do-build:
 	cd $(WORKDIR) && gmake

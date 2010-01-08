@@ -1,0 +1,11 @@
+--- lib/savewd.c.orig	Fri Jan  4 17:46:01 2008
++++ lib/savewd.c	Fri Jan  4 17:46:37 2008
+@@ -54,7 +54,7 @@
+ 	    wd->val.fd = fd;
+ 	    break;
+ 	  }
+-	if (errno != EACCES && errno != ESTALE)
++	if (errno != EACCES /*&& errno != ESTALE*/)
+ 	  {
+ 	    wd->state = ERROR_STATE;
+ 	    wd->val.errnum = errno;
