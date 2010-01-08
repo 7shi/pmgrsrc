@@ -17,7 +17,7 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --program-prefix=g CPPFLAGS=-D_ALL_SOURCE
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && gmake HAVE_STDINT_H=0
 
 do-pkginst:
 	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
