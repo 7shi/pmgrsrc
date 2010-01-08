@@ -1,0 +1,20 @@
+--- daemon.c.orig	2009-12-24 15:21:27.000000000 +0900
++++ daemon.c	2009-12-24 15:39:44.000000000 +0900
+@@ -3,6 +3,8 @@
+ #include "exec_cmd.h"
+ #include "run-command.h"
+ #include "strbuf.h"
++#include "../inet_ntop.c"
++#include "../inet_pton.c"
+ 
+ #include <syslog.h>
+ 
+@@ -960,7 +962,7 @@
+ 		    listen_addr, listen_port);
+ 
+ 	if (pass && gid &&
+-	    (initgroups(pass->pw_name, gid) || setgid (gid) ||
++	    (/*initgroups(pass->pw_name, gid) ||*/ setgid (gid) ||
+ 	     setuid(pass->pw_uid)))
+ 		die("cannot drop privileges");
+ 

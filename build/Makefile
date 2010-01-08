@@ -6,11 +6,14 @@ PACKAGES = \
 	distorm \
 	file \
 	ginstall \
+	git \
 	gmp \
 	gtar \
 	gxemul \
+	i386-elf \
 	i686-mingw32 \
 	mercurial \
+	mipsel-elf \
 	mkisofs \
 	mpfr \
 	openssh \

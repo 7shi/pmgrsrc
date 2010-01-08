@@ -1,0 +1,40 @@
+--- git-compat-util.h.orig	2009-12-24 14:20:31.000000000 +0900
++++ git-compat-util.h	2009-12-24 15:01:08.000000000 +0900
+@@ -93,7 +93,13 @@
+ #include <utime.h>
+ #ifndef __MINGW32__
+ #include <sys/wait.h>
++#ifdef __INTERIX
++#define NO_STRTOULL
++#include <poll.h>
++typedef int socklen_t;
++#else
+ #include <sys/poll.h>
++#endif
+ #include <sys/socket.h>
+ #include <sys/ioctl.h>
+ #ifndef NO_SYS_SELECT_H
+@@ -104,7 +110,14 @@
+ #include <arpa/inet.h>
+ #include <netdb.h>
+ #include <pwd.h>
++#ifdef __INTERIX
++#include <sys/types.h>
++typedef int intptr_t;
++typedef unsigned long long uint64_t;
++#else
+ #include <inttypes.h>
++#endif
++typedef 
+ #if defined(__CYGWIN__)
+ #undef _XOPEN_SOURCE
+ #include <grp.h>
+@@ -438,7 +451,7 @@
+ # define FORCE_DIR_SET_GID 0
+ #endif
+ 
+-#ifdef NO_NSEC
++#if defined(NO_NSEC) || defined(__INTERIX)
+ #undef USE_NSEC
+ #define ST_CTIME_NSEC(st) 0
+ #define ST_MTIME_NSEC(st) 0
