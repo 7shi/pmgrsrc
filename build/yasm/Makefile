@@ -1,13 +1,13 @@
-PKGNAME = texinfo
-PKGVER  = 4.8a
+PKGNAME = yasm
+PKGVER  = 0.6.0
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
-WORKDIR = $(PKGNAME)-4.8
-SOURCE  = $(PKGNAME)-$(PKGVER).tar.gz
-SRCURL  = http://ftp.gnu.org/gnu/$(PKGNAME)/$(SOURCE)
+WORKDIR = $(PKGNAME)-$(PKGVER)
+SOURCE  = $(WORKDIR).tar.gz
+SRCURL  = http://www.tortall.net/projects/$(PKGNAME)/releases/$(SOURCE)
 
 do-fetch:
 	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
@@ -16,7 +16,7 @@ do-extract:
 	pmgr-extract $(DISTDIR)/$(SOURCE)
 
 do-patch:
-	cp $(TOPDIR)/share/config.* $(WORKDIR)
+	cp $(TOPDIR)/share/config.* $(WORKDIR)/config
 
 do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
@@ -26,4 +26,4 @@ do-build:
 
 do-pkginst:
 	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	cd dest/bin && strip *info* texindex
+	strip dest/bin/*

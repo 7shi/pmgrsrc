@@ -1,5 +1,5 @@
---- bash-3.2/po/LINGUAS.orig	Fri Feb 23 03:18:22 2007
-+++ bash-3.2/po/LINGUAS	Fri Feb 23 03:18:29 2007
+--- po/LINGUAS.orig	Fri Feb 23 03:18:22 2007
++++ po/LINGUAS	Fri Feb 23 03:18:29 2007
 @@ -1,2 +1,2 @@
  # Set of available languages.
 -en@quot en@boldquot ru

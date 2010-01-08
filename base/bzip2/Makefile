@@ -4,39 +4,30 @@ PKGVER  = 1.0.4
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 
+PKGBZIP2 = $(PKGDEST)/bin/$(PKGCMDNAME)-bzip2
+.install: $(PKGBZIP2)
+$(PKGBZIP2): .build
+	install -cs $(WORKDIR)/bzip2 $@
+
+include $(TOPDIR)/pmgr.mk
+
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCE  = $(WORKDIR).tar.gz
 SRCURL  = http://www.bzip.org/$(PKGVER)/$(SOURCE)
 
-all: build
-
-.fetch: .depend
-	@echo && echo ===== fetch =====
-	mkdir -p $(DISTDIR)
+do-fetch:
 	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-	touch $@
 
-.extract: .fetch
-	@echo && echo ===== extract =====
+do-extract:
 	pmgr-extract $(DISTDIR)/$(SOURCE)
-	touch $@
 
-.patch: .extract
-	@echo && echo ===== patch =====
-	touch $@
+do-patch:
+do-config:
 
-.config: .patch
-	@echo && echo ===== config =====
-	touch $@
-
-.build: .config
-	@echo && echo ===== build =====
+do-build:
 	cd $(WORKDIR) && $(MAKE)
-	touch $@
 
-.pkginst: .build
-	@echo && echo ===== pkginst =====
-	rm -rf dest
+do-pkginst:
 	cd $(WORKDIR) && cp Makefile Makefile.orig
 	sed -e "s|^PREFIX=.*$$|PREFIX=`pwd`/dest|" $(WORKDIR)/Makefile.orig > $(WORKDIR)/Makefile
 	cd $(WORKDIR) && $(MAKE) install
@@ -45,11 +36,3 @@ all: build
 	cd dest/bin && rm bzfgrep && ln -s bzgrep bzfgrep
 	cd dest/bin && rm bzless && ln -s bzmore bzless
 	strip dest/bin/bzcat dest/bin/bzip2*
-	touch $@
-
-PKGBZIP2 = $(PKGDEST)/bin/$(PKGCMDNAME)-bzip2
-.install: $(PKGBZIP2)
-$(PKGBZIP2): build
-	install -cs $(WORKDIR)/bzip2 $@
-
-include $(TOPDIR)/pmgr.mk

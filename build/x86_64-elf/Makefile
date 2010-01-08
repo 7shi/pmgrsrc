@@ -1,4 +1,4 @@
-PACKAGES = binutils runtime w32api gcc
+PACKAGES = binutils gcc
 
 include cross.mk
 include $(TOPDIR_)/common.mk

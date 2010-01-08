@@ -1,47 +1,34 @@
+# cf. http://www.hakusan.tsg.ne.jp/tjkawa/lib/interix/simplymake.jsp
+
 PKGNAME = openssl
-PKGVER  = 0.9.8e
+PKGVER  = 0.9.7m
+BLDDEPS = perl
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
+include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCE  = $(WORKDIR).tar.gz
 SRCURL  = http://www.openssl.org/source/$(SOURCE)
 
-all: build
-
-.fetch: .depend
-	@echo && echo ===== fetch =====
-	mkdir -p $(DISTDIR)
+do-fetch:
 	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-	touch $@
 
-.extract: .fetch
-	@echo && echo ===== extract =====
+do-extract:
 	pmgr-extract $(DISTDIR)/$(SOURCE)
-	touch $@
 
-.patch: .extract
-	@echo && echo ===== patch =====
-	touch $@
+do-patch:
+	cat patch-* | patch -p0 -d $(WORKDIR)
 
-.config: .patch
-	@echo && echo ===== config =====
-	cd $(WORKDIR) && ./Configure gcc --prefix=$(PKGDEST)
-	touch $@
+do-config:
+	cd $(WORKDIR) && ./Configure --prefix=$(PKGDEST) threads Interix-gcc
 
-.build: .config
-	@echo && echo ===== build =====
+do-build:
 	gmake -C $(WORKDIR)
-	touch $@
 
-.pkginst: .build
-	@echo && echo ===== pkginst =====
-	rm -rf dest
+do-pkginst:
 	gmake -C $(WORKDIR) INSTALL_PREFIX=`pwd`/dest install
 	mv dest$(PKGDEST)/* dest
 	rm -rf dest/`echo $(PKGDEST) | sed -e "s|^/||" | sed -e "s|/.*$$||" | sed -e "s|^|/|"`
 	strip dest/bin/openssl
-	touch $@
-
-include $(TOPDIR)/pmgr.mk

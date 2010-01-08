@@ -1,12 +1,14 @@
 PACKAGES = \
-	zlib libresolv libcrypt \
+	zlib \
 	libiconv gettext \
 	wget openssl openssh \
 	bash zsh \
 	cvs subversion \
-	texinfo m4 bison flex \
+	mkisofs \
+	texinfo m4 bison flex autoconf automake \
 	perl \
-	mingw
+	nasm yasm distorm \
+	mingw x86_64-elf
 
 TOPDIR = ..
 include $(TOPDIR)/common.mk

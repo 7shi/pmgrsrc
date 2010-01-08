@@ -1,4 +1,4 @@
-PKGNAME = mingw-binutils
+PKGNAME = $(ARCH_PREFIX)-binutils
 PKGVER  = 2.17
 
 include ../cross.mk
@@ -20,12 +20,11 @@ do-patch:
 	cp $(TOPDIR)/share/config.* $(WORKDIR)
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
+	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64-bit-bfd
 
 do-build:
 	CPPFLAGS=-D_ALL_SOURCE gmake -C $(WORKDIR)
 
 do-pkginst:
 	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	for exe in addr2line ar as c++filt dlltool dllwrap ld nm objcopy objdump ranlib readelf size strings strip windres; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
-	for exe in ar as dlltool ld nm objdump ranlib strip; do strip dest/$(ARCH_PREFIX)/bin/$$exe; done
+	strip dest/bin/* dest/$(ARCH_PREFIX)/bin/*

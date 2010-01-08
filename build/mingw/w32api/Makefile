@@ -1,42 +1,23 @@
 PKGNAME = mingw-w32api
 PKGVER  = 3.6
 
-include ../mingw.mk
+include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
 include $(TOPDIR)/common.mk
+include $(TOPDIR)/pmgr.mk
 
 WORKDIR = 
 SOURCE  = w32api-$(PKGVER).tar.gz
 SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/mingw/$(SOURCE)
 
-all: build
-
-.fetch: .depend
-	@echo && echo ===== fetch =====
-	mkdir -p $(DISTDIR)
+do-fetch:
 	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-	touch $@
 
-.extract: .fetch
-	@echo && echo ===== extract =====
-	touch $@
+do-extract:
+do-patch:
+do-config:
+do-build:
 
-.patch: .extract
-	@echo && echo ===== patch =====
-	touch $@
-
-.config: .patch
-	@echo && echo ===== config =====
-	touch $@
-
-.build: .config
-	@echo && echo ===== build =====
-	touch $@
-
-.pkginst: .build
-	@echo && echo ===== pkginst =====
+do-pkginst:
 	mkdir -p dest/$(ARCH_PREFIX)
 	pmgr-extract $(DISTDIR)/$(SOURCE) -C dest/$(ARCH_PREFIX)
-	touch $@
-
-include $(TOPDIR)/pmgr.mk

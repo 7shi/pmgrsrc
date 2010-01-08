@@ -1,12 +1,13 @@
-PKGNAME = texinfo
-PKGVER  = 4.8a
+PKGNAME = autoconf
+PKGVER  = 2.61
+DEPENDS = m4 perl
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
-WORKDIR = $(PKGNAME)-4.8
-SOURCE  = $(PKGNAME)-$(PKGVER).tar.gz
+WORKDIR = $(PKGNAME)-$(PKGVER)
+SOURCE  = $(WORKDIR).tar.bz2
 SRCURL  = http://ftp.gnu.org/gnu/$(PKGNAME)/$(SOURCE)
 
 do-fetch:
@@ -16,7 +17,6 @@ do-extract:
 	pmgr-extract $(DISTDIR)/$(SOURCE)
 
 do-patch:
-	cp $(TOPDIR)/share/config.* $(WORKDIR)
 
 do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
@@ -26,4 +26,3 @@ do-build:
 
 do-pkginst:
 	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	cd dest/bin && strip *info* texindex

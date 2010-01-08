@@ -3,45 +3,28 @@ PKGVER  = 3.2
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
+include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCE  = $(WORKDIR).tar.gz
 SRCURL  = http://ftp.gnu.org/gnu/$(PKGNAME)/$(SOURCE)
 
-all: build
-
-.fetch: .depend
-	@echo && echo ===== fetch =====
-	mkdir -p $(DISTDIR)
+do-fetch:
 	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-	touch $@
 
-.extract: .fetch
-	@echo && echo ===== extract =====
+do-extract:
 	pmgr-extract $(DISTDIR)/$(SOURCE)
-	touch $@
 
-.patch: .extract
-	@echo && echo ===== patch =====
+do-patch:
 	cp $(TOPDIR)/share/config.* $(WORKDIR)/support
-	patch -p0 < patch-aa
-	touch $@
+	cat patch-* | patch -p0 -d $(WORKDIR)
 
-.config: .patch
-	@echo && echo ===== config =====
+do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
-	touch $@
 
-.build: .config
-	@echo && echo ===== build =====
+do-build:
 	gmake -C $(WORKDIR)
-	touch $@
 
-.pkginst: .build
-	@echo && echo ===== pkginst =====
-	rm -rf dest
+do-pkginst:
 	gmake -C $(WORKDIR) prefix=`pwd`/dest install
 	strip dest/bin/bash
-	touch $@
-
-include $(TOPDIR)/pmgr.mk

@@ -1,7 +1,9 @@
-PKGNAME = mingw-gcc
+# cf. http://www.osdev.org/osfaq2/index.php/GCC%20Cross-Compiler
+
+PKGNAME = $(ARCH_PREFIX)-gcc
 PKGVER  = 4.1.2
 BLDDEPS = flex bison texinfo
-DEPENDS = mingw/binutils mingw/runtime mingw/w32api
+DEPENDS = $(ARCH_PREFIX)/binutils
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
@@ -20,7 +22,7 @@ do-extract:
 
 do-patch:
 	cp $(TOPDIR)/share/config.* $(WORKDIR)
-	cd $(WORKDIR)/libobjc && touch tconfig.h tm.h gthr-default.h
+	cat patch-* | patch -p0 -d $(WORKDIR)
 
 do-config:
 	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
@@ -28,9 +30,9 @@ do-config:
 	cd $(WORKDIR) && sed -e 's|^SHELL *=.*$$|SHELL = /bin/sh|' Makefile.orig > Makefile
 
 do-build:
-	CPPFLAGS=-D_ALL_SOURCE gmake -C $(WORKDIR)
+	CPPFLAGS=-D_ALL_SOURCE gmake -C $(WORKDIR) all-gcc
 
 do-pkginst:
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
-	for exe in c++ cpp fastjar g++ gcc gcc-$(PKGVER) gcj gcjh gcov gjnih grepjar jcf-dump jv-scan; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
+	gmake -C $(WORKDIR) prefix=`pwd`/dest install-gcc
+	for exe in c++ cpp g++ gcc gcc-$(PKGVER) gcj gcjh gcov gjnih jcf-dump jv-scan; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
 	strip dest/libexec/gcc/$(ARCH_PREFIX)/$(PKGVER)/[cj]*

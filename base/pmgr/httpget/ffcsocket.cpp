@@ -22,11 +22,7 @@
 #  include <sys/socket.h>
 #  include <arpa/inet.h>
 #  define CLOSE(sock) ::close(sock)
-#  if defined(__APPLE__) || defined(__CYGWIN__)
-#    define SOCKLEN_T int
-#  else
-#    define SOCKLEN_T socklen_t
-#  endif
+#  define SOCKLEN_T int
 #  ifndef INVALID_SOCKET
 #    define INVALID_SOCKET (-1)
 #  endif

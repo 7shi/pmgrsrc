@@ -30,7 +30,7 @@ fi
 
 for pkg
 do
-	echo "files: $pkg"
+	echo "[$PKGDEST/$PKGDBDIR/files/$pkg]"
 	if [ -f $PKGDEST/$PKGDBDIR/files/$pkg ]
 	then
 		cat $PKGDEST/$PKGDBDIR/files/$pkg | sed -e "s|^|$PKGDEST/|"

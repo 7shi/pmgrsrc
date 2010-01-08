@@ -3,6 +3,8 @@ PKGFILE = dest/$(PKGDBDIR)/files/$(PKGNAME)
 PKGVERF = dest/$(PKGDBDIR)/versions/$(PKGNAME)
 PKGDEPF = dest/$(PKGDBDIR)/depends/$(PKGNAME)
 
+all: build
+
 depend: .depend
 .depend:
 	@echo && echo ===== depend =====
@@ -10,11 +12,43 @@ depend: .depend
 	touch $@
 
 fetch: .fetch
+.fetch:
+	@echo && echo ===== fetch =====
+	mkdir -p $(DISTDIR)
+	for dep in $(BLDDEPS) $(DEPENDS); do if [ ! -f $(PKGDEST)/$(PKGDBDIR)/files/`echo $$dep | sed -e 's|/|-|g'` ]; then (cd $(TOPDIR)/build/$$dep && $(MAKE) do-fetch) || exit; fi; done
+	@$(MAKE) do-fetch || exit
+	touch $@
+
 extract: .extract
+.extract: .depend .fetch
+	@echo && echo ===== extract =====
+	@$(MAKE) do-extract || exit
+	touch $@
+
 patch: .patch
+.patch: .extract
+	@echo && echo ===== patch =====
+	@$(MAKE) do-patch || exit
+	touch $@
+
 config: .config
+.config: .patch
+	@echo && echo ===== config =====
+	@$(MAKE) do-config || exit
+	touch $@
+
 build: .build
+.build: .config
+	@echo && echo ===== build =====
+	@$(MAKE) do-build || exit
+	touch $@
+
 pkginst: .pkginst
+.pkginst: .build
+	@echo && echo ===== pkginst =====
+	rm -rf dest
+	@$(MAKE) do-pkginst || exit
+	touch $@
 
 package: $(PACKAGE)
 $(PACKAGE): .pkginst
@@ -38,7 +72,7 @@ repackage:
 
 install: .install
 .install: $(PACKAGE)
-	@echo
+	@echo && echo ===== install =====
 	$(PKGCMDNAME)-add $(PACKAGE)
 	touch $@
 
@@ -47,7 +81,7 @@ reinstall:
 	$(MAKE) install
 
 uninstall:
-	@echo
+	@echo && echo ===== uninstall =====
 	$(PKGCMDNAME)-del $(PKGNAME)
 	rm -f .install
 
