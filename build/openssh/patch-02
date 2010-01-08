@@ -1,0 +1,20 @@
+--- openbsd-compat/getrrsetbyname.c.orig	2009-12-14 02:25:53.000000000 +0900
++++ openbsd-compat/getrrsetbyname.c	2009-12-14 02:28:58.000000000 +0900
+@@ -117,7 +117,7 @@
+  * Routines to insert/extract short/long's.
+  */
+ 
+-#ifndef HAVE__GETSHORT
++#if !defined(HAVE__GETSHORT) && !defined(__INTERIX)
+ static u_int16_t
+ _getshort(msgp)
+ 	register const u_char *msgp;
+@@ -131,7 +131,7 @@
+ u_int16_t _getshort(register const u_char *);
+ #endif
+ 
+-#ifndef HAVE__GETLONG
++#if !defined(HAVE__GETLONG) && !defined(__INTERIX)
+ static u_int32_t
+ _getlong(msgp)
+ 	register const u_char *msgp;

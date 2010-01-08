@@ -2,7 +2,7 @@ TOPDIR = ../..
 include $(TOPDIR)/common.mk
 
 SCRIPTS = $(PKGCMDNAME)-add $(PKGCMDNAME)-del $(PKGCMDNAME)-ls $(PKGCMDNAME)-extract
-TARGETS = $(PKGCMDNAME)-httpget $(PKGCMDNAME)-sizecat $(SCRIPTS)
+TARGETS = $(PKGCMDNAME)-sizecat $(SCRIPTS)
 
 all: build
 fetch extract:
@@ -32,10 +32,6 @@ $(SCRIPTS):
 
 $(PKGCMDNAME)-sizecat: sizecat.c
 	gcc -o $@ sizecat.c
-	strip $@
-
-$(PKGCMDNAME)-httpget:
-	g++ -o $@ httpget/*.cpp
 	strip $@
 
 clean distclean:

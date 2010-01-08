@@ -1,6 +1,5 @@
 PKGNAME = autoconf
 PKGVER  = 2.61
-DEPENDS = m4 #perl
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
@@ -18,7 +17,7 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
-	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
+	cd $(WORKDIR) && make prefix=`pwd`/../dest install

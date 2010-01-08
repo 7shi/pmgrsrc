@@ -17,8 +17,8 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
-	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
+	cd $(WORKDIR) && make prefix=`pwd`/../dest install
 	for lib in dest/lib/*.so.*; do if [ ! -L $$lib ]; then strip $$lib; chmod 755 $$lib; fi; done

@@ -1,6 +1,5 @@
 PKGNAME = subversion
 PKGVER  = 1.5.7
-DEPENDS = zlib libiconv
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
@@ -18,11 +17,11 @@ do-config:
 	cd $(WORKDIR) && CPPFLAGS="-I$(PKGDEST)/include -D_ALL_SOURCE" LDFLAGS=-L$(PKGDEST)/lib ./configure --prefix=$(PKGDEST)
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
 	rm -rf $(WORKDIR)/dest
-	cd $(WORKDIR) && gmake DESTDIR=`pwd`/dest install
+	cd $(WORKDIR) && make DESTDIR=`pwd`/dest install
 	mkdir -p dest
 	mv $(WORKDIR)/dest$(PKGDEST)/* dest
 	strip dest/bin/svn*

@@ -19,7 +19,7 @@ do-patch:
 do-config:
 
 do-build:
-	cd $(WORKDIR)/build/linux && gmake CFLAGS="-O2 -Wall -D_ALL_SOURCE -I." clib
+	cd $(WORKDIR)/build/linux && make CFLAGS="-O2 -Wall -D_ALL_SOURCE -I." clib
 	cd $(WORKDIR) && gcc -O2 -I.. -I$(PKGDEST)/include -D_ALL_SOURCE -o $(PKGNAME) linuxproj/main.c $(PKGDEST)/include/strtoull.c -Lbuild/linux -Wl,-R$(PKGDEST)/lib -ldistorm64
 
 do-pkginst:

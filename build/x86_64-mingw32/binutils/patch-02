@@ -1,0 +1,21 @@
+--- ld/emultempl/pep.em.orig	Thu Nov 26 19:24:48 2009
++++ ld/emultempl/pep.em	Thu Nov 26 19:28:23 2009
+@@ -73,6 +73,8 @@
+ #include "pep-dll.h"
+ #include "safe-ctype.h"
+ 
++#include <strtoull.h>
++
+ /* Permit the emulation parameters to override the default section
+    alignment by setting OVERRIDE_SECTION_ALIGNMENT.  FIXME: This makes
+    it seem that include/coff/internal.h should not define
+@@ -1852,4 +1854,9 @@
+   gld_${EMULATION_NAME}_find_potential_libraries,
+   NULL	/* new_vers_pattern.  */
+ };
++
++#undef isspace
++#define isspace ISSPACE
++static const char *__rcsid_ ATTRIBUTE_UNUSED;
++#include <strtoull.c>
+ EOF

@@ -17,8 +17,8 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) CPPFLAGS="-I$(PKGDEST)/include -D_ALL_SOURCE"
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
-	cd $(WORKDIR) && gmake prefix=`dirname \`pwd\``/dest install
+	cd $(WORKDIR) && make prefix=`dirname \`pwd\``/dest install
 	strip dest/bin/*

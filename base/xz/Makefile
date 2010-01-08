@@ -4,7 +4,6 @@ PKGVER  = 4.999.9beta
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
-include ../base.mk
 
 PKGCOMPRESS = bin/xz
 INSTALL_ENV = PATH="`pwd`/dest/bin:$$PATH"

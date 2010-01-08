@@ -1,6 +1,5 @@
 PKGNAME = openssh
-PKGVER  = 4.5p1
-DEPENDS = zlib openssl
+PKGVER  = 5.3p1
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
@@ -8,7 +7,7 @@ include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCES = $(WORKDIR).tar.gz
-SRCURL  = ftp://ftp.iij.ad.jp/pub/OpenBSD/OpenSSH/portable
+SRCURL  = http://ftp.jaist.ac.jp/pub/OpenBSD/OpenSSH/portable
 
 do-fetch: std-fetch
 do-extract: std-extract
@@ -26,10 +25,10 @@ do-config:
 	echo "#define DISABLE_LOGIN" >> $(WORKDIR)/config.h
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
-	cd $(WORKDIR) && gmake DESTDIR=`pwd`/../dest install
+	cd $(WORKDIR) && make DESTDIR=`pwd`/../dest install
 	mv dest$(PKGDEST)/* dest
 	rm -rf dest/`echo $(PKGDEST) | sed -e "s|^/||" | sed -e "s|/.*$$||" | sed -e "s|^|/|"`
 	strip dest/bin/* dest/libexec/*

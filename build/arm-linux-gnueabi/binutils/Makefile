@@ -18,8 +18,8 @@ do-config:
 	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
-	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib gmake
+	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib make
 
 do-pkginst:
-	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
+	cd $(WORKDIR) && make prefix=`pwd`/../dest install
 	strip dest/bin/* dest/$(ARCH_PREFIX)/bin/*

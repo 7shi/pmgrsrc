@@ -19,8 +19,8 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 
 do-build:
-	cd $(WORKDIR)/lib && gmake
-	cd $(WORKDIR)/src && gmake ginstall
+	cd $(WORKDIR)/lib && make
+	cd $(WORKDIR)/src && make ginstall
 
 do-pkginst:
 	mkdir -p dest/bin dest/man/man1

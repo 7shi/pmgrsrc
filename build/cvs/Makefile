@@ -17,9 +17,9 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
-	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
+	cd $(WORKDIR) && make prefix=`pwd`/../dest install
 	strip dest/bin/cvs
 	rm dest/bin/rcs2log

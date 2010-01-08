@@ -7,7 +7,7 @@ include $(TOPDIR)/pmgr.mk
 
 WORKDIR = cdrtools-$(PKGVER)
 SOURCES = $(WORKDIR).tar.bz2
-SRCURL  = ftp://ftp.berlios.de/pub/cdrecord
+SRCURL  = http://gd.tuwien.ac.at/utils/schilling/cdrtools
 
 do-fetch: std-fetch
 do-extract: std-extract
@@ -20,11 +20,11 @@ do-patch:
 	cd $(WORKDIR)/DEFAULTS && sed -e "s/	cc/	gcc/" Defaults.linux > Defaults.interix
 
 do-config:
-	cd $(WORKDIR) && gmake config
+	cd $(WORKDIR) && make config
 
 do-build:
-	cd $(WORKDIR) && gmake
+	cd $(WORKDIR) && make
 
 do-pkginst:
-	cd $(WORKDIR)/mkisofs && gmake INS_BASE=`pwd`/../../dest install
+	cd $(WORKDIR)/mkisofs && make INS_BASE=`pwd`/../../dest install
 	strip dest/bin/*

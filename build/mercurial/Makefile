@@ -20,7 +20,7 @@ do-patch:
 do-config:
 
 do-build:
-	cd $(WORKDIR) && gmake PREFIX=$(PKGDEST) all
+	cd $(WORKDIR) && make PREFIX=$(PKGDEST) all
 
 do-pkginst:
-	cd $(WORKDIR) && gmake PREFIX=`pwd`/../dest install
+	cd $(WORKDIR) && make PREFIX=`pwd`/../dest install
