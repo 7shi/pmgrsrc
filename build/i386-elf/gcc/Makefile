@@ -1,6 +1,6 @@
 PKGNAME = $(ARCH_PREFIX)-gcc
-PKGVER  = 4.3.4
-DEPENDS = gmp mpfr $(ARCH_PREFIX)/binutils
+PKGVER  = 4.4.2
+DEPENDS = $(ARCH_PREFIX)/binutils
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
@@ -19,7 +19,7 @@ do-patch:
 
 do-config:
 	mkdir -p $(WORKDIR)/build
-	cd $(WORKDIR)/build && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
+	cd $(WORKDIR)/build && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
 
 do-build:
 	cd $(WORKDIR)/build && make CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" all-target-libgcc

@@ -3,11 +3,9 @@ PACKAGES = \
 	distorm \
 	gtar \
 	gxemul \
+	i386-elf \
 	i686-mingw32 \
-	mercurial \
-	openssh \
-	python \
-	subversion \
+	mipsel-elf \
 	x86_64-mingw32
 
 TOPDIR = ..
