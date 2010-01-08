@@ -23,7 +23,6 @@ do-config:
 do-build:
 
 do-pkginst:
-	mkdir -p dest
-	cd dest && pmgr-extract ../$(DISTDIR)/$(SOURCES)
-	mv dest/usr/local/$(ARCH_PREFIX) dest
-	rm -rf dest/usr
+	mkdir -p dest/$(ARCH_PREFIX)
+	cd dest/$(ARCH_PREFIX) && pmgr-extract ../../$(DISTDIR)/$(SOURCES)
+	rm -rf dest/$(ARCH_PREFIX)/lib/gcc

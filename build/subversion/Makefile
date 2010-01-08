@@ -26,3 +26,4 @@ do-pkginst:
 	mkdir -p dest
 	mv $(WORKDIR)/dest$(PKGDEST)/* dest
 	strip dest/bin/svn*
+	chmod 755 dest/lib/libserf-0.so.0.0.0

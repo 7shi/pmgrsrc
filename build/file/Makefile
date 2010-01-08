@@ -11,12 +11,10 @@ SRCURL  = ftp://ftp.astron.com/pub/$(PKGNAME)
 
 do-fetch: std-fetch
 do-extract: std-extract
-
 do-patch: #fix-configure
-	cp ../support/strtoull.c $(WORKDIR)/src
 
 do-config:
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) CPPFLAGS=-D_ALL_SOURCE
+	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) CPPFLAGS="-I$(PKGDEST)/include -D_ALL_SOURCE"
 
 do-build:
 	cd $(WORKDIR) && gmake

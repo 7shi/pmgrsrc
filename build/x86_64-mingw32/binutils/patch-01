@@ -4,7 +4,7 @@
  #include "pep-dll.h"
  #include "safe-ctype.h"
  
-+unsigned long long strtoull(const char * __restrict nptr, char ** __restrict endptr, int base);
++#include <strtoull.h>
 +
  /* Permit the emulation parameters to override the default section
     alignment by setting OVERRIDE_SECTION_ALIGNMENT.  FIXME: This makes
@@ -17,5 +17,5 @@
 +#undef isspace
 +#define isspace ISSPACE
 +extern const char *__rcsid_ ATTRIBUTE_UNUSED;
-+#include "strtoull.c"
++#include <strtoull.c>
  EOF

@@ -12,9 +12,7 @@ SRCURL  = ftp://ftp.gnu.org/gnu/binutils
 
 do-fetch: std-fetch
 do-extract: std-extract
-
 do-patch: #fix-configure
-	cp ../../support/strtoull.c $(WORKDIR)/ld
 
 do-config:
 	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)

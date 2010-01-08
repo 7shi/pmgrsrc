@@ -37,6 +37,9 @@ static char sccsid[] = "@(#)strtouq.c	8.1 (Berkeley) 6/4/93";
 #include <sys/cdefs.h>
 static const char *__rcsid_ = "$FreeBSD: src/lib/libc/stdlib/strtoull.c,v 1.20 2005/01/21 13:31:02 ache Exp $";
 
+#ifndef _ALL_SOURCE
+#define _ALL_SOURCE
+#endif
 #include <limits.h>
 #include <errno.h>
 #include <ctype.h>

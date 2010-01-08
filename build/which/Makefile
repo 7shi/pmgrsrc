@@ -1,12 +1,12 @@
-PKGNAME = template-gnu
-PKGVER  = 1.0.0
+PKGNAME = which
+PKGVER  = 2.20
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCES = $(WORKDIR).tar.bz2
+SOURCES = $(WORKDIR).tar.gz
 SRCURL  = ftp://ftp.gnu.org/gnu/$(PKGNAME)
 
 do-fetch: std-fetch

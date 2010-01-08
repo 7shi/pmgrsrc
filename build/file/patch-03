@@ -4,7 +4,7 @@
  #include <sys/mman.h>
  #endif
  #include <dirent.h>
-+#include "strtoull.c"
++#include <strtoull.c>
  
  #define	EATAB {while (isascii((unsigned char) *l) && \
  		      isspace((unsigned char) *l))  ++l;}

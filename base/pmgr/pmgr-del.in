@@ -14,7 +14,7 @@ if [ "$1" = "-f" ]
 then
 	while read f
 	do
-		if [ -f $PKGDEST/$f ]
+		if [ -f $PKGDEST/$f -o -L $PKGDEST/$f ]
 		then
 			rm $PKGDEST/$f
 		fi

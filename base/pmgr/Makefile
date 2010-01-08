@@ -13,12 +13,13 @@ install reinstall: $(TARGETS)
 	mkdir -p $(PKGDEST)/bin
 	install -c -m 0755 $(TARGETS) $(PKGDEST)/bin
 	mkdir -p $(PKGDEST)/include
-	cp limits.h $(PKGDEST)/include
+	cp include/* $(PKGDEST)/include
 	mkdir -p $(PKGDEST)/share/libtool
 	cp config.* ltmain.sh $(PKGDEST)/share/libtool
 
 uninstall:
 	cd $(PKGDEST)/bin && rm -f $(TARGETS)
+	cd include && for src in *.h *.c; do rm -f $(PKGDEST)/include/$$src; done
 
 $(PKGCMDNAME)-add: $(PKGCMDNAME)-add.in $(TOPDIR)/common.mk
 $(PKGCMDNAME)-del: $(PKGCMDNAME)-del.in $(TOPDIR)/common.mk

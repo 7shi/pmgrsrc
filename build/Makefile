@@ -28,6 +28,7 @@ PACKAGES = \
 	readline \
 	subversion \
 	texinfo \
+	which \
 	x86_64-mingw32 \
 	yasm \
 	zlib \

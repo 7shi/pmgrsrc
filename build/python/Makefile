@@ -1,7 +1,7 @@
 PKGNAME = python
 PKGVER  = 2.6.4
 BLDDEPS = ginstall
-DEPENDS = readline zlib
+DEPENDS = readline zlib openssl
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk

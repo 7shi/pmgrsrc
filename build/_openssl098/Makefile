@@ -10,8 +10,7 @@ include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
 SOURCES = $(WORKDIR).tar.gz
-SRCURL  = ftp://ftp.infoscience.co.jp/pub/Crypto/SSL/openssl/source
-#SRCURL  = http://www.openssl.org/source
+SRCURL  = http://www.openssl.org/source
 
 do-fetch: std-fetch
 do-extract: std-extract
