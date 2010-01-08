@@ -1,22 +1,13 @@
 PACKAGES = \
 	arm-linux-gnueabi \
-	autoconf \
-	automake \
-	cvs \
 	distorm \
-	file \
-	ginstall \
-	gmp \
 	gtar \
 	gxemul \
 	i686-mingw32 \
 	mercurial \
-	mkisofs \
-	mpfr \
 	openssh \
 	python \
 	subversion \
-	which \
 	x86_64-mingw32
 
 TOPDIR = ..

@@ -1,71 +1,13 @@
---- configure.orig	Thu Nov 12 10:14:22 2009
-+++ configure	Thu Nov 12 10:17:57 2009
-@@ -4121,7 +4121,7 @@
- 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
- 	  INSTSONAME="$LDLIBRARY".$SOVERSION
-           ;;
--    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*)
-+    Linux*|GNU*|NetBSD*|FreeBSD*|Interix*|DragonFly*)
- 	  LDLIBRARY='libpython$(VERSION).so'
- 	  BLDLIBRARY='-L. -lpython$(VERSION)'
- 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
-@@ -13251,6 +13251,7 @@
- 				esac
- 		fi;;
- 	NetBSD*|DragonFly*) LDSHARED="cc -shared ${LDFLAGS}";;
-+	Interix*) LDSHARED='$(CC) -shared'" ${LDFLAGS}";; # XXX tv needs image-base hack
- 	OpenUNIX*|UnixWare*)
- 		if test "$GCC" = "yes"
- 		then LDSHARED='$(CC) -shared'
-@@ -13286,6 +13287,7 @@
- 	Linux*|GNU*) CCSHARED="-fPIC";;
- 	BSD/OS*/4*) CCSHARED="-fpic";;
- 	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*) CCSHARED="-fPIC";;
-+	Interix*) CCSHARED="";;
- 	OpenUNIX*|UnixWare*)
- 		if test "$GCC" = "yes"
- 		then CCSHARED="-fPIC"
-@@ -13343,6 +13345,7 @@
- 		then
- 			LINKFORSHARED="-Wl,--export-dynamic"
- 		fi;;
-+	Interix*) LINKFORSHARED="-Wl,-E";;
- 	SunOS/5*) case $CC in
- 		  *gcc*)
- 		    if $CC -Xlinker --help 2>&1 | grep export-dynamic >/dev/null
-@@ -23380,7 +23383,7 @@
-   echo $ECHO_N "(cached) $ECHO_C" >&6
- else
-   ac_check_lib_save_LIBS=$LIBS
--LIBS="-lreadline $READLINE_LIBS $LIBS"
-+LIBS="-lreadline -ltermcap $READLINE_LIBS $LIBS"
- cat >conftest.$ac_ext <<_ACEOF
- /* confdefs.h.  */
- _ACEOF
-@@ -23508,7 +23511,7 @@
-   echo $ECHO_N "(cached) $ECHO_C" >&6
- else
-   ac_check_lib_save_LIBS=$LIBS
--LIBS="-lreadline $READLINE_LIBS $LIBS"
-+LIBS="-lreadline -ltermcap $READLINE_LIBS $LIBS"
- cat >conftest.$ac_ext <<_ACEOF
- /* confdefs.h.  */
- _ACEOF
-@@ -23579,7 +23582,7 @@
-   echo $ECHO_N "(cached) $ECHO_C" >&6
- else
-   ac_check_lib_save_LIBS=$LIBS
--LIBS="-lreadline $READLINE_LIBS $LIBS"
-+LIBS="-lreadline -ltermcap $READLINE_LIBS $LIBS"
- cat >conftest.$ac_ext <<_ACEOF
- /* confdefs.h.  */
- _ACEOF
-@@ -23650,7 +23653,7 @@
-   echo $ECHO_N "(cached) $ECHO_C" >&6
- else
-   ac_check_lib_save_LIBS=$LIBS
--LIBS="-lreadline $READLINE_LIBS $LIBS"
-+LIBS="-lreadline -ltermcap $READLINE_LIBS $LIBS"
- cat >conftest.$ac_ext <<_ACEOF
- /* confdefs.h.  */
- _ACEOF
+--- Modules/selectmodule.c.orig	2009-12-19 05:58:47.000000000 +0900
++++ Modules/selectmodule.c	2009-12-19 06:03:56.000000000 +0900
+@@ -16,6 +16,10 @@
+ #undef HAVE_BROKEN_POLL
+ #endif
+ 
++#ifdef HAVE_BROKEN_POLL
++#undef HAVE_BROKEN_POLL
++#endif
++
+ /* Windows #defines FD_SETSIZE to 64 if FD_SETSIZE isn't already defined.
+    64 is too small (too many people have bumped into that limit).
+    Here we boost it.
