@@ -7,6 +7,8 @@ PACKAGES = \
 	file \
 	ginstall \
 	gmp \
+	gtar \
+	gxemul \
 	i686-mingw32 \
 	mercurial \
 	mkisofs \
