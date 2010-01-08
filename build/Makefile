@@ -7,7 +7,6 @@ PACKAGES = \
 	file \
 	ginstall \
 	git \
-	gmp \
 	gtar \
 	gxemul \
 	i386-elf \
@@ -15,7 +14,6 @@ PACKAGES = \
 	mercurial \
 	mipsel-elf \
 	mkisofs \
-	mpfr \
 	openssh \
 	python \
 	subversion \
