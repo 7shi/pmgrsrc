@@ -1,6 +1,6 @@
 PKGNAME = $(ARCH_PREFIX)-gcc
-PKGVER  = 4.3.4
-DEPENDS = gmp mpfr $(ARCH_PREFIX)/binutils $(ARCH_PREFIX)/runtime
+PKGVER  = 4.4.2
+DEPENDS = $(ARCH_PREFIX)/binutils $(ARCH_PREFIX)/runtime
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..

@@ -2,7 +2,6 @@ PACKAGES = \
 	arm-linux-gnueabi \
 	distorm \
 	gtar \
-	gxemul \
 	i386-elf \
 	i686-mingw32 \
 	mipsel-elf \
