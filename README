@@ -1,0 +1,18 @@
+[how to build]
+
+1. export PATH="/opt/pmgr/bin:$PATH"
+2. cd base && make install
+3. cd build[/PACKAGE] && make install
+
+[command usage]
+
+install:
+% pmgr-add PACKAGE-VER.tpkg
+
+uninstall:
+% pmgr-del PACKAGE
+
+list installed packages:
+% pmgr-ls [package-name]
+
+Thank you!

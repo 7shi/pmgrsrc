@@ -1,0 +1,54 @@
+#!/bin/sh
+# This file is in the public domain.
+
+PKGDEST=@@PKGDEST@@
+PKGDBDIR=@@PKGDBDIR@@
+
+if [ $# -eq 0 ]
+then
+	echo "usage: `basename $0` package-name [...]"
+	exit
+fi
+
+if [ "$1" = "-f" ]
+then
+	while read f
+	do
+		if [ -f $PKGDEST/$f ]
+		then
+			rm $PKGDEST/$f
+		fi
+	done
+	exit 0
+fi
+
+if [ "$1" = "-d" ]
+then
+	while read d
+	do
+		if [ -d $PKGDEST/$d ]
+		then
+			if [ `ls -A $PKGDEST/$d | wc -l` -eq 0 ]
+			then
+				rmdir $PKGDEST/$d
+			fi
+		fi
+	done
+	exit 0
+fi
+
+for pkg
+do
+	echo "delete package: $pkg"
+	if [ -f $PKGDEST/$PKGDBDIR/$pkg ]
+	then
+		echo "removing files..."
+		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/$pkg | sh $0 -f
+		echo "removing directories..."
+		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/$pkg | sort -r | sh $0 -d
+		rm -f $PKGDEST/$PKGDBDIR/$pkg
+		echo "done."
+	else
+		echo "ERROR: not found!"
+	fi
+done

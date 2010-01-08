@@ -1,0 +1,22 @@
+#!/bin/sh
+# This file is in the public domain.
+
+PKGDEST=@@PKGDEST@@
+PKGDBDIR=@@PKGDBDIR@@
+
+if [ $# -eq 0 ]
+then
+	echo [$PKGDEST/$PKGDBDIR]
+	ls $PKGDEST/$PKGDBDIR
+fi
+
+for pkg
+do
+	echo "files: $pkg"
+	if [ -f $PKGDEST/$PKGDBDIR/$pkg ]
+	then
+		cat $PKGDEST/$PKGDBDIR/$pkg | sed -e "s|^|$PKGDEST/|"
+	else
+		echo "ERROR: not found!"
+	fi
+done

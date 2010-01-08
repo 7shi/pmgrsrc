@@ -1,0 +1,10 @@
+dirname
+basename
+
+shell script syntax
+if then else
+for do done
+
+using stderr to show progress
+
+stackable work shell (call -> ret)

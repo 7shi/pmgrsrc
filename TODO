@@ -1,0 +1,3 @@
+package dependencies
+wget -> fetch
+freebsd(x86_64) cross tools

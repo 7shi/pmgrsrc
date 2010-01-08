@@ -1,0 +1,31 @@
+#!/bin/sh
+# This file is in the public domain.
+
+PKGDEST=@@PKGDEST@@
+PKGDBDIR=@@PKGDBDIR@@
+
+if [ $# -eq 0 ]
+then
+	echo "usage: `basename $0` package-file [...]"
+	exit
+fi
+
+for pkg
+do
+	if [ -f $pkg ]
+	then
+		pkgbase=`basename $pkg`
+		pkgname=`echo $pkgbase | sed -e "s/-[0-9].*//"`
+		if [ -f $PKGDEST/$PKGDBDIR/$pkgname ]
+		then
+			pmgr-del $pkgname
+		fi
+		echo "install package: $pkg"
+		pmgr-extract j $pkg -C $PKGDEST || exit
+		echo "done."
+		#echo "[FYI] show installed files: pmgr-ls $pkgname"
+	else
+		echo "install package: $pkg"
+		echo "ERROR: not found!"
+	fi
+done
