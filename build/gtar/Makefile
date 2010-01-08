@@ -15,7 +15,7 @@ do-extract: std-extract
 do-patch:
 
 do-config:
-	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --program-prefix=g CPPFLAGS=-D_ALL_SOURCE
+	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --program-prefix=g
 
 do-build:
 	cd $(WORKDIR) && make HAVE_STDINT_H=0

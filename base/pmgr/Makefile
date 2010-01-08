@@ -12,8 +12,6 @@ patch config package repackage:
 install reinstall: $(TARGETS)
 	mkdir -p $(PKGDEST)/bin
 	install -c -m 0755 $(TARGETS) $(PKGDEST)/bin
-	#mkdir -p $(PKGDEST)/include
-	#cp include/* $(PKGDEST)/include
 	mkdir -p $(PKGDEST)/share/libtool
 	cp config.* ltmain.sh $(PKGDEST)/share/libtool
 

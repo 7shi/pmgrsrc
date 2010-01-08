@@ -15,10 +15,10 @@ do-extract: std-extract
 do-patch: #fix-configure
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
+	cd $(WORKDIR) && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
 
 do-build:
-	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib make
+	cd $(WORKDIR) && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS=-Wl,-R$(PKGDEST)/lib make
 
 do-pkginst:
 	cd $(WORKDIR) && make prefix=`pwd`/../dest install

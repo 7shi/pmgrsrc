@@ -19,10 +19,10 @@ do-patch:
 
 do-config:
 	mkdir -p $(WORKDIR)/build
-	cd $(WORKDIR)/build && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
+	cd $(WORKDIR)/build && CPPFLAGS=-I$(PKGDEST)/include LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
-	cd $(WORKDIR)/build && make CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib"
+	cd $(WORKDIR)/build && make CPPFLAGS=-I$(PKGDEST)/include LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib"
 
 do-pkginst:
 	cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install

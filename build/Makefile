@@ -1,5 +1,4 @@
 PACKAGES = \
-	arm-linux-gnueabi \
 	distorm \
 	gtar \
 	i386-elf \
