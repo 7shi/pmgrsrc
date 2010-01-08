@@ -3,8 +3,15 @@
 
 if [ $# -gt 0 ]
 then
+	tar=tar
 	target=$1
 	shift
+	if [ "$target" = "-gtar" ]
+	then
+		tar=gtar
+		target=$1
+		shift
+	fi
 	case $target in
 		z | j)
 			type=$target;
@@ -21,11 +28,11 @@ then
 
 	case $type in
 		z)
-			pmgr-sizecat $target | gzip -dc | tar xf - "$@"
+			pmgr-sizecat $target | gzip -dc | $tar xf - "$@"
 			exit
 			;;
 		j)
-			pmgr-sizecat $target | pmgr-bzip2 -dc | tar xf - "$@"
+			pmgr-sizecat $target | pmgr-bzip2 -dc | $tar xf - "$@"
 			exit
 			;;
 	esac

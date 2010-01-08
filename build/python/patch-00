@@ -1,0 +1,89 @@
+--- configure.orig	Sat Mar 10 22:46:51 2007
++++ configure	Sat Mar 10 22:13:02 2007
+@@ -3407,7 +3407,7 @@
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
+ 	  INSTSONAME="$LDLIBRARY".$SOVERSION
+           ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|Interix*|DragonFly*)
+ 	  LDLIBRARY='libpython$(VERSION).so'
+ 	  BLDLIBRARY='-L. -lpython$(VERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
+@@ -11046,6 +11046,7 @@
+ 				esac
+ 		fi;;
+ 	NetBSD*|DragonFly*) LDSHARED="cc -shared ${LDFLAGS}";;
++	Interix*) LDSHARED='$(CC) -shared'" ${LDFLAGS}";; # XXX tv needs image-base hack
+ 	OpenUNIX*|UnixWare*)
+ 		if test "$GCC" = "yes"
+ 		then LDSHARED='$(CC) -shared'
+@@ -11079,6 +11080,7 @@
+ 	Linux*|GNU*) CCSHARED="-fPIC";;
+ 	BSD/OS*/4*) CCSHARED="-fpic";;
+ 	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*) CCSHARED="-fPIC";;
++	Interix*) CCSHARED="";;
+ 	OpenUNIX*|UnixWare*)
+ 		if test "$GCC" = "yes"
+ 		then CCSHARED="-fPIC"
+@@ -11136,6 +11138,7 @@
+ 		then
+ 			LINKFORSHARED="-Wl,--export-dynamic"
+ 		fi;;
++	Interix*) LINKFORSHARED="-Wl,-E";;
+ 	SunOS/5*) case $CC in
+ 		  *gcc*)
+ 		    if $CC -Xlinker --help 2>&1 | grep export-dynamic >/dev/null
+@@ -20674,7 +20677,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lreadline  $LIBS"
++LIBS="-lreadline -ltermcap $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -20737,7 +20740,7 @@
+ #define HAVE_LIBREADLINE 1
+ _ACEOF
+ 
+-  LIBS="-lreadline $LIBS"
++  LIBS="-lreadline -ltermcap $LIBS"
+ 
+ fi
+ 
+@@ -20826,7 +20829,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lreadline  $LIBS"
++LIBS="-lreadline -ltermcap $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -20958,7 +20961,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lreadline  $LIBS"
++LIBS="-lreadline -ltermcap $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -21032,7 +21035,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lreadline  $LIBS"
++LIBS="-lreadline -ltermcap $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -22893,7 +22896,7 @@
+ s,@MAINCC@,$MAINCC,;t t
+ s,@CPP@,$CPP,;t t
+ s,@EGREP@,$EGREP,;t t
+-s,@BUILDEXEEXT@,$BUILDEXEEXT,;t t
++s,@BUILDEXEEXT@,.exe,;t t
+ s,@LIBRARY@,$LIBRARY,;t t
+ s,@LDLIBRARY@,$LDLIBRARY,;t t
+ s,@DLLLIBRARY@,$DLLLIBRARY,;t t

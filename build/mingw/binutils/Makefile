@@ -7,25 +7,22 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = binutils-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.bz2
-SRCURL  = http://ftp.gnu.org/gnu/binutils/$(SOURCE)
+SOURCES = $(WORKDIR).tar.bz2
+SRCURL  = ftp://ftp.gnu.org/gnu/binutils
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
-do-extract:
-	pmgr-extract $(DISTDIR)/$(SOURCE)
+do-fetch: std-fetch
+do-extract: std-extract
 
 do-patch:
-	cp $(TOPDIR)/share/config.* $(WORKDIR)
+	cp $(PKGDEST)/share/libtool/config.* $(WORKDIR)
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
+	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
-	CPPFLAGS=-D_ALL_SOURCE gmake -C $(WORKDIR)
+	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE LDFLAGS=-Wl,-R$(PKGDEST)/lib gmake
 
 do-pkginst:
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
+	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	for exe in addr2line ar as c++filt dlltool dllwrap ld nm objcopy objdump ranlib readelf size strings strip windres; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
 	for exe in ar as dlltool ld nm objdump ranlib strip; do strip dest/$(ARCH_PREFIX)/bin/$$exe; done

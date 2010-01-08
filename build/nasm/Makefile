@@ -6,24 +6,20 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.bz2
-SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/$(PKGNAME)/$(SOURCE)
+SOURCES = $(WORKDIR).tar.bz2
+SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/$(PKGNAME)
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
-do-extract:
-	pmgr-extract $(DISTDIR)/$(SOURCE)
-
+do-fetch: std-fetch
+do-extract: std-extract
 do-patch:
 
 do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 
 do-build:
-	gmake -C $(WORKDIR)
+	cd $(WORKDIR) && gmake
 
 do-pkginst:
 	mkdir -p dest/bin dest/man/man1
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
+	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	strip dest/bin/*

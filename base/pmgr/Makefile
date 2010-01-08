@@ -14,6 +14,8 @@ install reinstall: $(TARGETS)
 	install -c -m 0755 $(TARGETS) $(PKGDEST)/bin
 	mkdir -p $(PKGDEST)/include
 	cp limits.h $(PKGDEST)/include
+	mkdir -p $(PKGDEST)/share/libtool
+	cp config.* ltmain.sh $(PKGDEST)/share/libtool
 
 uninstall:
 	cd $(PKGDEST)/bin && rm -f $(TARGETS)

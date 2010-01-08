@@ -20,9 +20,9 @@ then
 		deps=`cat $PKGDEST/$PKGDBDIR/depends/$pkg`
 		if [ "$deps" = "" ]
 		then
-			echo "$pkg\t"`cat $PKGDEST/$PKGDBDIR/versions/$pkg`
+			echo "$pkg	"`cat $PKGDEST/$PKGDBDIR/versions/$pkg`
 		else
-			echo "$pkg\t"`cat $PKGDEST/$PKGDBDIR/versions/$pkg`"\tdepends: $deps"
+			echo "$pkg	"`cat $PKGDEST/$PKGDBDIR/versions/$pkg`"	depends: $deps"
 		fi
 	done
 	exit 0

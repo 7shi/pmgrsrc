@@ -1,6 +1,6 @@
 PKGNAME = mingw-gcc
 PKGVER  = 4.1.2
-BLDDEPS = flex bison texinfo
+BLDDEPS = flex bison texinfo gtar
 DEPENDS = mingw/binutils mingw/runtime mingw/w32api
 
 include ../cross.mk
@@ -9,28 +9,24 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = gcc-$(PKGVER)
-SOURCE  = gcc-core-$(PKGVER).tar.bz2 gcc-g++-$(PKGVER).tar.bz2 gcc-java-$(PKGVER).tar.bz2 gcc-objc-$(PKGVER).tar.bz2
-SRCURL  = http://ftp.gnu.org/gnu/gcc/$(WORKDIR)
+SOURCES = gcc-core-$(PKGVER).tar.bz2 gcc-g++-$(PKGVER).tar.bz2 gcc-java-$(PKGVER).tar.bz2 gcc-objc-$(PKGVER).tar.bz2
+SRCURL  = ftp://ftp.gnu.org/gnu/gcc/$(WORKDIR)
+EXTRACT = pmgr-extract -gtar
 
-do-fetch:
-	for src in $(SOURCE); do if [ ! -f $(DISTDIR)/$$src ]; then $(HTTPGET) $(SRCURL)/$$src && mv $$src $(DISTDIR); fi; done
-
-do-extract:
-	for src in $(SOURCE); do pmgr-extract $(DISTDIR)/$$src; done
+do-fetch: std-fetch
+do-extract: std-extract
 
 do-patch:
-	cp $(TOPDIR)/share/config.* $(WORKDIR)
+	cp $(PKGDEST)/share/libtool/config.* $(WORKDIR)
 	cd $(WORKDIR)/libobjc && touch tconfig.h tm.h gthr-default.h
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS=-D_ALL_SOURCE ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
-	cd $(WORKDIR) && cp Makefile Makefile.orig
-	cd $(WORKDIR) && sed -e 's|^SHELL *=.*$$|SHELL = /bin/sh|' Makefile.orig > Makefile
+	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
-	CPPFLAGS=-D_ALL_SOURCE gmake -C $(WORKDIR)
+	cd $(WORKDIR) && gmake CPPFLAGS=-D_ALL_SOURCE LDFLAGS=-Wl,-R$(PKGDEST)/lib SHELL=/bin/sh
 
 do-pkginst:
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
+	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	for exe in c++ cpp fastjar g++ gcc gcc-$(PKGVER) gcj gcjh gcov gjnih grepjar jcf-dump jv-scan; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
 	strip dest/libexec/gcc/$(ARCH_PREFIX)/$(PKGVER)/[cj]*

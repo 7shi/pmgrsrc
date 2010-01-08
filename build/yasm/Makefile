@@ -6,24 +6,19 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.gz
-SRCURL  = http://www.tortall.net/projects/$(PKGNAME)/releases/$(SOURCE)
+SOURCES = $(WORKDIR).tar.gz
+SRCURL  = http://www.tortall.net/projects/$(PKGNAME)/releases
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
-do-extract:
-	pmgr-extract $(DISTDIR)/$(SOURCE)
-
-do-patch:
-	cp $(TOPDIR)/share/config.* $(WORKDIR)/config
+do-fetch: std-fetch
+do-extract: std-extract
+do-patch: fix-configure
 
 do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST)
 
 do-build:
-	gmake -C $(WORKDIR)
+	cd $(WORKDIR) && gmake
 
 do-pkginst:
-	gmake -C $(WORKDIR) prefix=`pwd`/dest install
+	cd $(WORKDIR) && gmake prefix=`pwd`/../dest install
 	strip dest/bin/*

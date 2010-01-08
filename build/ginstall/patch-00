@@ -1,0 +1,48 @@
+--- configure.orig	Sat Mar 10 21:18:12 2007
++++ configure	Sat Mar 10 21:18:49 2007
+@@ -19641,11 +19641,11 @@
+     fi
+   fi
+ 
+-  if test -z "$ac_list_mounted_fs"; then
+-    { { echo "$as_me:19645: error: could not determine how to read list of mounted filesystems" >&5
+-echo "$as_me: error: could not determine how to read list of mounted filesystems" >&2;}
+-   { (exit 1); exit 1; }; }
+-  fi
++#  if test -z "$ac_list_mounted_fs"; then
++#    { { echo "$as_me:19645: error: could not determine how to read list of mounted filesystems" >&5
++#echo "$as_me: error: could not determine how to read list of mounted filesystems" >&2;}
++#   { (exit 1); exit 1; }; }
++#  fi
+ 
+ fi
+ 
+@@ -20092,19 +20092,19 @@
+   fi
+ fi
+ 
+-if test -z "$ac_list_mounted_fs"; then
+-  { { echo "$as_me:20096: error: could not determine how to read list of mounted filesystems" >&5
+-echo "$as_me: error: could not determine how to read list of mounted filesystems" >&2;}
+-   { (exit 1); exit 1; }; }
++#if test -z "$ac_list_mounted_fs"; then
++#  { { echo "$as_me:20096: error: could not determine how to read list of mounted filesystems" >&5
++#echo "$as_me: error: could not determine how to read list of mounted filesystems" >&2;}
++#   { (exit 1); exit 1; }; }
+   # FIXME -- no need to abort building the whole package
+   # Can't build mountlist.c or anything that needs its functions
+-fi
++#fi
+ 
+-if test $ac_list_mounted_fs = found; then
+-  list_mounted_fs=yes
+-else
++#if test $ac_list_mounted_fs = found; then
++#  list_mounted_fs=yes
++#else
+   list_mounted_fs=no
+-fi
++#fi
+ 
+     echo "$as_me:20109: checking for f_fstypename in struct statfs" >&5
+ echo $ECHO_N "checking for f_fstypename in struct statfs... $ECHO_C" >&6

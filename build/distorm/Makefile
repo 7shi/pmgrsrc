@@ -6,22 +6,20 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)
-SOURCE  = $(PKGNAME)-pkg$(PKGVER).tar.bz2
-SRCURL  = http://www.ragestorm.net/$(PKGNAME)/$(SOURCE)
+SOURCES = $(PKGNAME)-pkg$(PKGVER).tar.bz2
+SRCURL  = http://www.ragestorm.net/$(PKGNAME)
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
-do-extract:
-	pmgr-extract $(DISTDIR)/$(SOURCE)
+do-fetch: std-fetch
+do-extract: std-extract
 
 do-patch:
 	cp sysexits.h $(WORKDIR)/linuxproj
+	if [ ! -f /usr/include/stdint.h ]; then cp stdint.h $(WORKDIR)/build/linux; fi
 
 do-config:
 
 do-build:
-	gmake -C $(WORKDIR)/build/linux clib
+	cd $(WORKDIR)/build/linux && gmake CFLAGS="-O2 -Wall -D_ALL_SOURCE -I." clib
 	cd $(WORKDIR) && gcc -O2 -I.. -I$(PKGDEST)/include -D_ALL_SOURCE -o $(PKGNAME) linuxproj/main.c ../strtoull.c -Lbuild/linux -Wl,-R$(PKGDEST)/lib -ldistorm64
 
 do-pkginst:

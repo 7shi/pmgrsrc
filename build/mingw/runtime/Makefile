@@ -7,12 +7,10 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = 
-SOURCE  = $(PKGNAME)-$(PKGVER).tar.gz
-SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/mingw/$(SOURCE)
+SOURCES = $(PKGNAME)-$(PKGVER).tar.gz
+SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/mingw
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
+do-fetch: std-fetch
 do-extract:
 do-patch:
 do-config:
@@ -20,4 +18,4 @@ do-build:
 
 do-pkginst:
 	mkdir -p dest/$(ARCH_PREFIX)
-	pmgr-extract $(DISTDIR)/$(SOURCE) -C dest/$(ARCH_PREFIX)
+	cd dest/$(ARCH_PREFIX) && pmgr-extract ../../$(DISTDIR)/$(SOURCES)

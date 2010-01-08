@@ -10,17 +10,14 @@ $(PKGBZIP2): .build
 	install -cs $(WORKDIR)/bzip2 $@
 
 include $(TOPDIR)/pmgr.mk
+include ../base.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.gz
-SRCURL  = http://www.bzip.org/$(PKGVER)/$(SOURCE)
+SOURCES = $(WORKDIR).tar.gz
+SRCURL  = http://www.bzip.org/$(PKGVER)
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
-do-extract:
-	pmgr-extract $(DISTDIR)/$(SOURCE)
-
+do-fetch: std-fetch
+do-extract: std-extract
 do-patch:
 do-config:
 

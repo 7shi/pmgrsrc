@@ -2,33 +2,28 @@
 
 PKGNAME = openssl
 PKGVER  = 0.9.7m
-BLDDEPS = perl
+#BLDDEPS = perl
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCE  = $(WORKDIR).tar.gz
-SRCURL  = http://www.openssl.org/source/$(SOURCE)
+SOURCES = $(WORKDIR).tar.gz
+SRCURL  = http://www.openssl.org/source
 
-do-fetch:
-	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
-
-do-extract:
-	pmgr-extract $(DISTDIR)/$(SOURCE)
-
+do-fetch: std-fetch
+do-extract: std-extract
 do-patch:
-	cat patch-* | patch -p0 -d $(WORKDIR)
 
 do-config:
 	cd $(WORKDIR) && ./Configure --prefix=$(PKGDEST) threads Interix-gcc
 
 do-build:
-	gmake -C $(WORKDIR)
+	cd $(WORKDIR) && gmake
 
 do-pkginst:
-	gmake -C $(WORKDIR) INSTALL_PREFIX=`pwd`/dest install
+	cd $(WORKDIR) && gmake INSTALL_PREFIX=`pwd`/../dest install
 	mv dest$(PKGDEST)/* dest
 	rm -rf dest/`echo $(PKGDEST) | sed -e "s|^/||" | sed -e "s|/.*$$||" | sed -e "s|^|/|"`
 	strip dest/bin/openssl
