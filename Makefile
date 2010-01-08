@@ -1,6 +1,6 @@
 include common.mk
 
-all:
+help:
 	@echo "[how to build]"
 	@echo
 	@echo "1. export PATH=\"$(PKGDEST)/bin:\$$PATH"\"
@@ -20,6 +20,6 @@ all:
 	@echo
 	@echo "Thank you!"
 
-clean:
-	cd base && $(MAKE) clean
-	cd build && $(MAKE) clean
+$(COMMANDS):
+	cd base && $(MAKE) $@
+	cd build && $(MAKE) $@

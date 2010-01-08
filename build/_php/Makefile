@@ -13,7 +13,6 @@ SRCURL  = http://jp.php.net/distributions
 
 do-fetch: std-fetch
 do-extract: std-extract
-
 do-patch: fix-configure
 
 do-config:

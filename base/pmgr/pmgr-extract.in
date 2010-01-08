@@ -13,7 +13,7 @@ then
 		shift
 	fi
 	case $target in
-		z | j)
+		z | j | J)
 			type=$target;
 			target=$1
 			shift
@@ -21,8 +21,19 @@ then
 		*.tar.gz | *.tgz)
 			type=z
 			;;
-		*.tar.bz2 | *.tbz | *.pmgr)
+		*.tar.bz2 | *.tbz)
 			type=j
+			;;
+		*.tar.xz | *.txz)
+			type=J
+			;;
+		*.pmgr)
+			if [ `od -An -tx1 -N4 $target | sed 's/ //g'` = "425a6839" ]
+			then
+				type=j
+			else
+				type=J
+			fi
 			;;
 	esac
 
@@ -32,11 +43,15 @@ then
 			exit
 			;;
 		j)
-			pmgr-sizecat $target | pmgr-bzip2 -dc | $tar xf - "$@"
+			pmgr-sizecat $target | bzip2 -dc | $tar xf - "$@"
+			exit
+			;;
+		J)
+			pmgr-sizecat $target | xz -dc | $tar xf - "$@"
 			exit
 			;;
 	esac
 fi
 
-echo "usage: `basename $0` z/j archive"
+echo "usage: `basename $0` [-gtar] z/j/J archive"
 exit 1

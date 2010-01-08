@@ -6,31 +6,29 @@ PACKAGES = \
 	bison \
 	cvs \
 	distorm \
+	file \
 	flex \
 	gettext \
 	ginstall \
 	gmp \
 	gsed \
 	gtar \
+	i686-mingw32 \
 	libiconv \
 	libtool \
 	libxml2 \
-	lzma \
 	m4 \
 	mercurial \
-	mingw \
 	mkisofs \
 	mpfr \
 	nasm \
 	openssh \
 	openssl \
-	php \
 	python \
 	readline \
 	subversion \
 	texinfo \
 	x86_64-mingw32 \
-	xz \
 	yasm \
 	zlib \
 	zsh

@@ -1,5 +1,5 @@
-PKGNAME = mingw-runtime
-PKGVER  = 3.9
+PKGNAME = $(ARCH_PREFIX)-runtime
+PKGVER  = 3.16
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
@@ -7,8 +7,8 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = 
-SOURCES = $(PKGNAME)-$(PKGVER).tar.gz
-SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/mingw
+SOURCES = mingwrt-$(PKGVER)-mingw32-dev.tar.gz
+SRCURL  = http://jaist.dl.sourceforge.net/project/mingw/MinGW%20Runtime/mingwrt-$(PKGVER)
 
 do-fetch: std-fetch
 do-extract:

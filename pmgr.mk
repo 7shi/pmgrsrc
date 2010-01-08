@@ -82,7 +82,7 @@ $(PACKAGE): .pkginst
 	mkdir -p `dirname $(PKGDEPF)`
 	echo `echo $(DEPENDS) | sed -e "s|/|-|g"` > $(PKGDEPF)
 	mkdir -p $(PKGDIR)
-	cd dest && tar cvf - * | $(PKGCMDNAME)-bzip2 > ../pkg
+	cd dest && tar cvf - * | $(PKGCOMPRESS) > ../pkg
 	mv pkg $@
 
 repackage:
@@ -92,7 +92,7 @@ repackage:
 install: .install
 .install: $(PACKAGE)
 	@echo && echo "===== install: $(PKGNAME) ====="
-	$(PKGCMDNAME)-add $(PACKAGE)
+	$(INSTALL_ENV) $(PKGCMDNAME)-add $(PACKAGE)
 	touch $@
 
 reinstall:

@@ -1,4 +1,4 @@
-PACKAGES = pmgr bzip2 gmake wget
+PACKAGES = pmgr xz gmake wget bzip2
 
 TOPDIR = ..
 include $(TOPDIR)/common.mk

@@ -18,8 +18,8 @@ do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) --program-prefix=g --disable-nls
 
 do-build:
-	cd $(WORKDIR) && make
+	cd $(WORKDIR) && $(MAKE)
 
-do-pkginst: subst-prefix
-	cd $(WORKDIR) && make install
+do-pkginst:
+	cd $(WORKDIR) && ./make prefix=`pwd`/../dest install
 	strip dest/bin/*

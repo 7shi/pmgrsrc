@@ -11,12 +11,10 @@ include $(TOPDIR)/pmgr.mk
 WORKDIR = gcc-$(PKGVER)
 SOURCES = gcc-core-$(PKGVER).tar.bz2 gcc-g++-$(PKGVER).tar.bz2 gcc-objc-$(PKGVER).tar.bz2
 SRCURL  = ftp://ftp.gnu.org/gnu/gcc/$(WORKDIR)
-EXTRACT = pmgr-extract
+EXTRACT = pmgr-extract -gtar
 
 do-fetch: std-fetch
-
-do-extract:
-	for src in $(SOURCES); do gtar xvjf $(DISTDIR)/$$src; done
+do-extract: std-extract
 
 do-patch:
 	cp $(PKGDEST)/share/libtool/config.* $(WORKDIR)

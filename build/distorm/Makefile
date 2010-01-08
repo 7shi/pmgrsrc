@@ -20,7 +20,7 @@ do-config:
 
 do-build:
 	cd $(WORKDIR)/build/linux && gmake CFLAGS="-O2 -Wall -D_ALL_SOURCE -I." clib
-	cd $(WORKDIR) && gcc -O2 -I.. -I$(PKGDEST)/include -D_ALL_SOURCE -o $(PKGNAME) linuxproj/main.c ../strtoull.c -Lbuild/linux -Wl,-R$(PKGDEST)/lib -ldistorm64
+	cd $(WORKDIR) && gcc -O2 -I.. -I$(PKGDEST)/include -D_ALL_SOURCE -o $(PKGNAME) linuxproj/main.c ../../support/strtoull.c -Lbuild/linux -Wl,-R$(PKGDEST)/lib -ldistorm64
 
 do-pkginst:
 	mkdir dest && cd dest && mkdir bin include lib

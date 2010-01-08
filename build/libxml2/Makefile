@@ -1,5 +1,5 @@
 PKGNAME = libxml2
-PKGVER  = 2.6.32
+PKGVER  = 2.7.6
 BLDDEPS = libtool
 
 TOPDIR  = ../..
@@ -12,10 +12,10 @@ SRCURL  = ftp://ftp.xmlsoft.org/$(PKGNAME)
 
 do-fetch: std-fetch
 do-extract: std-extract
-do-patch: fix-configure
+do-patch: #fix-configure
 
 do-config:
-	cd $(WORKDIR) && LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST)
+	cd $(WORKDIR) && LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --without-python
 
 do-build:
 	cd $(WORKDIR) && gmake

@@ -4,6 +4,7 @@ PKGCMDNAME  = pmgr
 PKGSUFFIX   = pmgr
 FETCH       = wget
 EXTRACT     = pmgr-extract
+PKGCOMPRESS = xz
 DISTDIR     = $(TOPDIR)/distfiles
 PKGDIR      = $(TOPDIR)/packages
 COMMANDS    = all fetch extract config build \

@@ -1,13 +1,12 @@
 PKGNAME = $(ARCH_PREFIX)-runtime
 PKGVER  = 20091125
-BLDDEPS = gtar
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
-WORKDIR = $(PKGNAME)
+WORKDIR = 
 SOURCES = ubuntu-jaunty-araneo-armel-dev.tar.xz
 SRCURL  = http://cid-fb45e1f8ce8b532e.skydrive.live.com/self.aspx/.Public/Others
 
@@ -19,15 +18,12 @@ do-fetch:
 	fi
 
 do-extract:
-	mkdir -p $(WORKDIR)
-	cd $(WORKDIR) && gtar xvJf ../$(DISTDIR)/$(SOURCES)
-
 do-patch:
-	rm -rf $(WORKDIR)/usr/local/$(ARCH_PREFIX)/lib/pkgconfig.orig
-
 do-config:
 do-build:
 
 do-pkginst:
 	mkdir -p dest
-	cd dest && (cd ../$(WORKDIR)/usr/local && tar cvf - $(ARCH_PREFIX)) | tar xf -
+	cd dest && pmgr-extract ../$(DISTDIR)/$(SOURCES)
+	mv dest/usr/local/$(ARCH_PREFIX) dest
+	rm -rf dest/usr

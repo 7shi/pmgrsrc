@@ -12,10 +12,10 @@ SRCURL  = ftp://ftp.gnu.org/gnu/binutils
 
 do-fetch: std-fetch
 do-extract: std-extract
-do-patch: fix-configure
+do-patch: #fix-configure
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64-bit-bfd
+	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
 	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib gmake
