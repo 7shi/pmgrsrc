@@ -12,7 +12,9 @@ SRCURL  = ftp://ftp.gnu.org/gnu/$(PKGNAME)
 
 do-fetch: std-fetch
 do-extract: std-extract
-do-patch: fix-configure
+
+do-patch: #fix-configure
+	cp $(PKGDEST)/share/libtool/config.* $(WORKDIR)/build-aux
 
 do-config:
 	cd $(WORKDIR) && ./configure --prefix=$(PKGDEST) CPPFLAGS=-D_ALL_SOURCE
