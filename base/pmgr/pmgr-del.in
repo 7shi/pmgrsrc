@@ -7,7 +7,7 @@ PKGDBDIR=@@PKGDBDIR@@
 if [ $# -eq 0 ]
 then
 	echo "usage: `basename $0` package-name [...]"
-	exit
+	exit 1
 fi
 
 if [ "$1" = "-f" ]
@@ -40,15 +40,19 @@ fi
 for pkg
 do
 	echo "delete package: $pkg"
-	if [ -f $PKGDEST/$PKGDBDIR/$pkg ]
+	if [ -f $PKGDEST/$PKGDBDIR/files/$pkg ]
 	then
 		echo "removing files..."
-		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/$pkg | sh $0 -f
+		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/files/$pkg | sh $0 -f
 		echo "removing directories..."
-		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/$pkg | sort -r | sh $0 -d
-		rm -f $PKGDEST/$PKGDBDIR/$pkg
+		pmgr-sizecat -nosize $PKGDEST/$PKGDBDIR/files/$pkg | sort -r | sh $0 -d
+		rm -f $PKGDEST/$PKGDBDIR/files/$pkg
+		rm -f $PKGDEST/$PKGDBDIR/versions/$pkg
+		rm -f $PKGDEST/$PKGDBDIR/depends/$pkg
 		echo "done."
 	else
 		echo "ERROR: not found!"
+		exit 1
 	fi
 done
+exit 0

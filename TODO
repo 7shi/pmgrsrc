@@ -1,3 +1,4 @@
-package dependencies
-wget -> fetch
-freebsd(x86_64) cross tools
+x86_64-elf cross tools
+python
+nasm
+yasm

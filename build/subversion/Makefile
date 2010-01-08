@@ -11,45 +11,34 @@ SRCURL  = http://subversion.tigris.org/downloads
 
 all: build
 
-fetch: .fetch
 .fetch: .depend
-	@echo && echo ===== $@ =====
-	mkdir -p $(DESTDIR)
-	for f in $(SOURCE); do if [ ! -f $(DESTDIR)/$$f ]; then $(HTTPGET) $(SRCURL)/$$f && mv $$f $(DESTDIR); fi; done
+	@echo && echo ===== fetch =====
+	mkdir -p $(DISTDIR)
+	for f in $(SOURCE); do if [ ! -f $(DISTDIR)/$$f ]; then $(HTTPGET) $(SRCURL)/$$f && mv $$f $(DISTDIR); fi; done
 	touch $@
 
-extract: .extract
 .extract: .fetch
-	@echo && echo ===== $@ =====
-	for f in $(SOURCE); do pmgr-extract j $(DESTDIR)/$$f; done
+	@echo && echo ===== extract =====
+	for f in $(SOURCE); do pmgr-extract j $(DISTDIR)/$$f; done
 	touch $@
 
-patch: .patch
 .patch: .extract
-	@echo && echo ===== $@ =====
+	@echo && echo ===== patch =====
 	for d in `find $(WORKDIR) -name config.guess`; do cp $(TOPDIR)/share/config.* `dirname $$d`; done
 	touch $@
 
-config: .config
 .config: .patch
-	@echo && echo ===== $@ =====
+	@echo && echo ===== config =====
 	cd $(WORKDIR) && CPPFLAGS="-I$(PKGDEST)/include -D_ALL_SOURCE" LDFLAGS=-L$(PKGDEST)/lib ./configure --prefix=$(PKGDEST)
 	touch $@
 
-post-config: .post-config
-.post-config: .config
-	@echo && echo ===== $@ =====
-	touch $@
-
-build: .build
-.build: .post-config
-	@echo && echo ===== $@ =====
+.build: .config
+	@echo && echo ===== build =====
 	gmake -C $(WORKDIR)
 	touch $@
 
-pkginst: .pkginst
 .pkginst: .build
-	@echo && echo ===== $@ =====
+	@echo && echo ===== pkginst =====
 	rm -rf dest
 	gmake -C $(WORKDIR) prefix=`pwd`/dest install
 	strip dest/bin/svn*

@@ -10,7 +10,7 @@ all:
 	@echo "[command usage]"
 	@echo
 	@echo "install:"
-	@echo "% $(PKGCMDNAME)-add PACKAGE-VER.tpkg"
+	@echo "% $(PKGCMDNAME)-add PACKAGE-VER.$(PKGSUFFIX)"
 	@echo
 	@echo "uninstall:"
 	@echo "% $(PKGCMDNAME)-del PACKAGE"

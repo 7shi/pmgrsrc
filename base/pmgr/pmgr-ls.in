@@ -6,17 +6,37 @@ PKGDBDIR=@@PKGDBDIR@@
 
 if [ $# -eq 0 ]
 then
-	echo [$PKGDEST/$PKGDBDIR]
-	ls $PKGDEST/$PKGDBDIR
+	echo "[$PKGDEST/$PKGDBDIR/files]"
+	ls $PKGDEST/$PKGDBDIR/files
+	echo "* to show details: pmgr-ls -l"
+	exit 0
+fi
+
+if [ "$1" = "-l" ]
+then
+	echo "[$PKGDEST/$PKGDBDIR/files|versions|depends]"
+	for pkg in `cd $PKGDEST/$PKGDBDIR/files && ls`
+	do
+		deps=`cat $PKGDEST/$PKGDBDIR/depends/$pkg`
+		if [ "$deps" = "" ]
+		then
+			echo "$pkg\t"`cat $PKGDEST/$PKGDBDIR/versions/$pkg`
+		else
+			echo "$pkg\t"`cat $PKGDEST/$PKGDBDIR/versions/$pkg`"\tdepends: $deps"
+		fi
+	done
+	exit 0
 fi
 
 for pkg
 do
 	echo "files: $pkg"
-	if [ -f $PKGDEST/$PKGDBDIR/$pkg ]
+	if [ -f $PKGDEST/$PKGDBDIR/files/$pkg ]
 	then
-		cat $PKGDEST/$PKGDBDIR/$pkg | sed -e "s|^|$PKGDEST/|"
+		cat $PKGDEST/$PKGDBDIR/files/$pkg | sed -e "s|^|$PKGDEST/|"
 	else
 		echo "ERROR: not found!"
+		exit 1
 	fi
 done
+exit 0

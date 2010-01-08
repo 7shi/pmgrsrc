@@ -10,43 +10,32 @@ SRCURL  = http://www.bzip.org/$(PKGVER)/$(SOURCE)
 
 all: build
 
-fetch: .fetch
 .fetch: .depend
-	@echo && echo ===== $@ =====
-	mkdir -p $(DESTDIR)
-	if [ ! -f $(DESTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DESTDIR); fi
+	@echo && echo ===== fetch =====
+	mkdir -p $(DISTDIR)
+	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
 	touch $@
 
-extract: .extract
 .extract: .fetch
-	@echo && echo ===== $@ =====
-	pmgr-extract z $(DESTDIR)/$(SOURCE)
+	@echo && echo ===== extract =====
+	pmgr-extract z $(DISTDIR)/$(SOURCE)
 	touch $@
 
-patch: .patch
 .patch: .extract
-	@echo && echo ===== $@ =====
+	@echo && echo ===== patch =====
 	touch $@
 
-config: .config
 .config: .patch
-	@echo && echo ===== $@ =====
+	@echo && echo ===== config =====
 	touch $@
 
-post-config: .post-config
-.post-config: .config
-	@echo && echo ===== $@ =====
-	touch $@
-
-build: .build
-.build: .post-config
-	@echo && echo ===== $@ =====
+.build: .config
+	@echo && echo ===== build =====
 	cd $(WORKDIR) && $(MAKE)
 	touch $@
 
-pkginst: .pkginst
 .pkginst: .build
-	@echo && echo ===== $@ =====
+	@echo && echo ===== pkginst =====
 	rm -rf dest
 	cd $(WORKDIR) && cp Makefile Makefile.orig
 	sed -e "s|^PREFIX=.*$$|PREFIX=`pwd`/dest|" $(WORKDIR)/Makefile.orig > $(WORKDIR)/Makefile
@@ -58,7 +47,9 @@ pkginst: .pkginst
 	strip dest/bin/bzcat dest/bin/bzip2*
 	touch $@
 
-BZIP2 = ../$(WORKDIR)/bzip2
-PKGCMDNAME = PATH="`pwd`/dest/bin:$$PATH" pmgr
+PKGBZIP2 = $(PKGDEST)/bin/$(PKGCMDNAME)-bzip2
+.install: $(PKGBZIP2)
+$(PKGBZIP2): build
+	install -cs $(WORKDIR)/bzip2 $@
 
 include $(TOPDIR)/pmgr.mk

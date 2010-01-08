@@ -1,9 +1,9 @@
 PKGNAME = mingw-w32api
 PKGVER  = 3.6
 
-TOPDIR  = ../../..
-include $(TOPDIR)/common.mk
 include ../mingw.mk
+TOPDIR  = $(TOPDIR_)/..
+include $(TOPDIR)/common.mk
 
 WORKDIR = 
 SOURCE  = w32api-$(PKGVER).tar.gz
@@ -11,43 +11,32 @@ SRCURL  = http://jaist.dl.sourceforge.net/sourceforge/mingw/$(SOURCE)
 
 all: build
 
-fetch: .fetch
 .fetch: .depend
-	@echo && echo ===== $@ =====
-	mkdir -p $(DESTDIR)
-	if [ ! -f $(DESTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DESTDIR); fi
+	@echo && echo ===== fetch =====
+	mkdir -p $(DISTDIR)
+	if [ ! -f $(DISTDIR)/$(SOURCE) ]; then $(HTTPGET) $(SRCURL) && mv $(SOURCE) $(DISTDIR); fi
 	touch $@
 
-extract: .extract
 .extract: .fetch
-	@echo && echo ===== $@ =====
+	@echo && echo ===== extract =====
 	touch $@
 
-patch: .patch
 .patch: .extract
-	@echo && echo ===== $@ =====
+	@echo && echo ===== patch =====
 	touch $@
 
-config: .config
 .config: .patch
-	@echo && echo ===== $@ =====
+	@echo && echo ===== config =====
 	touch $@
 
-post-config: .post-config
-.post-config: .config
-	@echo && echo ===== $@ =====
+.build: .config
+	@echo && echo ===== build =====
 	touch $@
 
-build: .build
-.build: .post-config
-	@echo && echo ===== $@ =====
-	touch $@
-
-pkginst: .pkginst
 .pkginst: .build
-	@echo && echo ===== $@ =====
+	@echo && echo ===== pkginst =====
 	mkdir -p dest/$(ARCH_PREFIX)
-	pmgr-extract z $(DESTDIR)/$(SOURCE) -C dest/$(ARCH_PREFIX)
+	pmgr-extract z $(DISTDIR)/$(SOURCE) -C dest/$(ARCH_PREFIX)
 	touch $@
 
 include $(TOPDIR)/pmgr.mk

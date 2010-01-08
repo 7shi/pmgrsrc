@@ -7,25 +7,60 @@ PKGDBDIR=@@PKGDBDIR@@
 if [ $# -eq 0 ]
 then
 	echo "usage: `basename $0` package-file [...]"
-	exit
+	exit 1
 fi
 
 for pkg
 do
 	if [ -f $pkg ]
 	then
+		pkgdir=`dirname $pkg`
 		pkgbase=`basename $pkg`
 		pkgname=`echo $pkgbase | sed -e "s/-[0-9].*//"`
-		if [ -f $PKGDEST/$PKGDBDIR/$pkgname ]
+		if [ -f $PKGDEST/$PKGDBDIR/files/$pkgname ]
 		then
+			echo "reinstall: $pkgname"
 			pmgr-del $pkgname
 		fi
+		echo "check package: $pkg"
+		depfile=$PKGDBDIR/depends/$pkgname
+		pmgr-extract j $pkg -C $PKGDEST $depfile || exit
+		deps=`cat $PKGDEST/$depfile`
+		for dep in $deps
+		do
+			echo "depends: $dep"
+			if [ -f $PKGDEST/$PKGDBDIR/files/$dep ]
+			then
+				echo "- installed"
+			else
+				target=""
+				for p in $pkgdir/*.pmgr
+				do
+					pbase=`basename $p`
+					pname=`echo $pbase | sed -e "s/-[0-9].*//"`
+					if [ "$pname" = "$dep" ]
+					then
+						target=$p
+					fi
+				done
+				if [ "$target" = "" ]
+				then
+					echo "ERROR: not found!"
+					rm -f $PKGDEST/$depfile
+					exit 1
+				else
+					pmgr-add $target || (rm -f $PKGDEST/$depfile && exit)
+				fi
+			fi
+		done
 		echo "install package: $pkg"
 		pmgr-extract j $pkg -C $PKGDEST || exit
 		echo "done."
-		#echo "[FYI] show installed files: pmgr-ls $pkgname"
+		echo "* to show installed files: pmgr-ls $pkgname"
 	else
 		echo "install package: $pkg"
 		echo "ERROR: not found!"
+		exit 1
 	fi
 done
+exit 0

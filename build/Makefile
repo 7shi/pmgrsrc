@@ -5,6 +5,7 @@ PACKAGES = \
 	bash zsh \
 	cvs subversion \
 	texinfo m4 bison flex \
+	perl \
 	mingw
 
 TOPDIR = ..

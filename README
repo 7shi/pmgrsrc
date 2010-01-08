@@ -7,7 +7,7 @@
 [command usage]
 
 install:
-% pmgr-add PACKAGE-VER.tpkg
+% pmgr-add PACKAGE-VER.pmgr
 
 uninstall:
 % pmgr-del PACKAGE
