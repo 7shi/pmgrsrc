@@ -1,0 +1,12 @@
+--- libstdc++-v3/src/locale.cc.orig	2010-02-04 14:33:42.000000000 +0900
++++ libstdc++-v3/src/locale.cc	2010-02-04 14:33:55.000000000 +0900
+@@ -155,7 +155,8 @@
+ 	  case LC_TIME:     
+ 	    __ret = time; 
+ 	    break;
+-#ifdef _GLIBCXX_HAVE_LC_MESSAGES
++#if 0
++/*#ifdef _GLIBCXX_HAVE_LC_MESSAGES*/
+ 	  case LC_MESSAGES: 
+ 	    __ret = messages;
+ 	    break;

@@ -10,6 +10,7 @@ PACKAGES = \
 	gtar \
 	gxemul \
 	i386-elf \
+	i386-pc-minix \
 	i686-mingw32 \
 	mercurial \
 	mipsel-elf \

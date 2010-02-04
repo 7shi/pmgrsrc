@@ -1,0 +1,11 @@
+--- libstdc++-v3/configure.orig	2010-02-03 21:20:45.000000000 +0900
++++ libstdc++-v3/configure	2010-02-03 21:41:17.000000000 +0900
+@@ -31023,7 +31023,7 @@
+     # This is a freestanding configuration; there is nothing to do here.
+     ;;
+ 
+-  *-darwin*)
++  *-darwin* | *-minix*)
+     # Darwin versions vary, but the linker should work in a cross environment,
+     # so we just check for all the features here.
+     # Check for available headers.

@@ -1,0 +1,20 @@
+--- gcc/cp/Make-lang.in.orig	2010-02-03 21:03:46.000000000 +0900
++++ gcc/cp/Make-lang.in	2010-02-03 21:03:55.000000000 +0900
+@@ -94,7 +94,7 @@
+ cc1plus-dummy$(exeext): $(CXX_OBJS) dummy-checksum.o $(BACKEND) $(LIBDEPS)
+ 	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ \
+ 	      $(CXX_OBJS) dummy-checksum.o $(BACKEND) $(LIBS)
+-	install -S 70Mb $@
++	#install -S 70Mb $@
+ 
+ cc1plus-checksum.c : cc1plus-dummy$(exeext) build/genchecksum$(build_exeext)
+ 	build/genchecksum$(build_exeext) cc1plus-dummy$(exeext) > $@
+@@ -104,7 +104,7 @@
+ cc1plus$(exeext): $(CXX_OBJS) cc1plus-checksum.o $(BACKEND) $(LIBDEPS)
+ 	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ \
+ 	      $(CXX_OBJS) cc1plus-checksum.o $(BACKEND) $(LIBS)
+-	install -S 70Mb $@
++	#install -S 70Mb $@
+ 
+ # Special build rules.
+ $(srcdir)/cp/cfns.h: $(srcdir)/cp/cfns.gperf

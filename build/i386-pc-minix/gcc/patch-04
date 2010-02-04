@@ -1,0 +1,12 @@
+--- libssp/ssp-local.c.orig	2010-02-04 14:43:14.000000000 +0900
++++ libssp/ssp-local.c	2010-02-04 14:43:28.000000000 +0900
+@@ -41,7 +41,8 @@
+    Using this entry point may avoid the load of a GP entirely for the
+    function, making the overall code smaller.  */
+ 
+-#ifdef HAVE_HIDDEN_VISIBILITY
++#if 0
++/*#ifdef HAVE_HIDDEN_VISIBILITY*/
+ void
+ __attribute__((visibility ("hidden")))
+ __stack_chk_fail_local (void)
