@@ -7,7 +7,7 @@ include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = 
-SOURCES = minix-$(PKGVER)-dev.tar.xz minix-$(PKGVER)-gcc-headers.tar.xz
+SOURCES = minix-$(PKGVER)-dev-gcc.tar.xz
 SRCURL  = http://cid-fb45e1f8ce8b532e.skydrive.live.com/self.aspx/.Public/MINIX
 
 do-fetch:
