@@ -1,2 +1,13 @@
 distfiles/
 packages/
+dest/
+.depend
+.fetch
+.extract
+.patch
+.config
+.build
+.pkginst
+.install
+files
+pkg

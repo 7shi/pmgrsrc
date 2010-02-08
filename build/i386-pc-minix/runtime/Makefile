@@ -1,5 +1,5 @@
 PKGNAME = $(ARCH_PREFIX)-runtime
-PKGVER  = 3.1.5
+PKGVER  = 3.1.6
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
