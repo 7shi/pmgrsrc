@@ -1,0 +1,15 @@
+--- gas/ecoff.c.orig	2010-03-13 18:55:42.000000000 +0900
++++ gas/ecoff.c	2010-03-13 18:58:44.000000000 +0900
+@@ -5232,4 +5232,12 @@
+ {
+ }
+ 
++void
++ecoff_directive_extern (int);
++
++void
++ecoff_directive_extern (int ignore ATTRIBUTE_UNUSED)
++{
++}
++
+ #endif /* ECOFF_DEBUGGING */

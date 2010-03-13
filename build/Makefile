@@ -14,6 +14,7 @@ PACKAGES = \
 	i686-mingw32 \
 	mercurial \
 	mipsel-elf \
+	mipsel-pe \
 	mkisofs \
 	openssh \
 	python \

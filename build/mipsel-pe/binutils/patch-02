@@ -1,0 +1,29 @@
+--- bfd/config.bfd.orig	2009-08-07 02:38:00.000000000 +0900
++++ bfd/config.bfd	2010-03-13 18:07:19.000000000 +0900
+@@ -133,10 +133,10 @@
+     exit 1
+     ;;
+ 
+-  mips*-*-pe*)
+-    echo "This target is obsolete and has been removed."
+-    exit 1
+-    ;;
++#  mips*-*-pe*)
++#    echo "This target is obsolete and has been removed."
++#    exit 1
++#    ;;
+ 
+   plugin)
+     targ_defvec=plugin_vec
+@@ -981,6 +981,11 @@
+     targ_defvec=bfd_elf32_bigmips_vec
+     targ_selvecs="bfd_elf32_littlemips_vec bfd_elf64_bigmips_vec bfd_elf64_littlemips_vec"
+     ;;
++  mips*el-*-pe*)
++    targ_defvec=mipslpe_vec
++    targ_selvecs="mipslpe_vec mipslpei_vec"
++    targ_underscore=yes
++    ;;
+   mips*-*-none)
+     targ_defvec=bfd_elf32_bigmips_vec
+     targ_selvecs="bfd_elf32_littlemips_vec bfd_elf64_bigmips_vec bfd_elf64_littlemips_vec"

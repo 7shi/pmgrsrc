@@ -1,0 +1,21 @@
+--- include/coff/ecoff.h.orig	2010-03-13 18:32:50.000000000 +0900
++++ include/coff/ecoff.h	2010-03-13 18:33:36.000000000 +0900
+@@ -147,10 +147,18 @@
+ /* gcc also uses mips-tfile to output COFF debugging information.
+    These are the values it uses when outputting the .type directive.
+    These should also be in a shared include file.  */
++#ifndef N_BTMASK
+ #define N_BTMASK	(017)
++#endif
++#ifndef N_TMASK
+ #define N_TMASK		(060)
++#endif
++#ifndef N_BTSHFT
+ #define N_BTSHFT	(4)
++#endif
++#ifndef N_TSHIFT
+ #define N_TSHIFT	(2)
++#endif
+ 
+ /********************** AUX **********************/
+ 
