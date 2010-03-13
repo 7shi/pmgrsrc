@@ -17,7 +17,7 @@ do-patch:
 	cp inttypes.h $(WORKDIR)/src/include
 
 do-config:
-	cd $(WORKDIR) && CFLAGS=-I. ./configure --disable-x
+	cd $(WORKDIR) && CFLAGS=-I. ./configure #--disable-x
 
 do-build:
 	cd $(WORKDIR) && make
