@@ -1,0 +1,17 @@
+--- src/devices/dev_mc146818.c.orig	2010-03-21 12:29:55.000000000 +0900
++++ src/devices/dev_mc146818.c	2010-03-21 18:02:11.000000000 +0900
+@@ -209,11 +209,13 @@
+ 		 *  emulation. However, for Linux, commenting out this line
+ 		 *  works better.  (TODO: Find a way to make both work?)
+ 		 */
+-		d->reg[4 * MC_YEAR] += 80;
++		d->reg[4 * MC_YEAR] -= 20;
+ 		break;
++	case MC146818_ARC_JAZZ:
+ 	case MC146818_ARC_NEC:
+ 		d->reg[4 * MC_YEAR] += (0x18 - 104);
+ 		break;
++	case MC146818_PC_CMOS:
+ 	case MC146818_CATS:
+ 		d->reg[4 * MC_YEAR] %= 100;
+ 		break;
