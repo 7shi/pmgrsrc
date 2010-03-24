@@ -1,12 +1,12 @@
 PKGNAME = autoconf
-PKGVER  = 2.61
+PKGVER  = 2.65
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
 include $(TOPDIR)/pmgr.mk
 
 WORKDIR = $(PKGNAME)-$(PKGVER)
-SOURCES = $(WORKDIR).tar.bz2
+SOURCES = $(WORKDIR).tar.xz
 SRCURL  = ftp://ftp.gnu.org/gnu/$(PKGNAME)
 
 do-fetch: std-fetch
