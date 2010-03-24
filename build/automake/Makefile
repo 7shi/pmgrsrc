@@ -1,5 +1,5 @@
 PKGNAME = automake
-PKGVER  = 1.10
+PKGVER  = 1.11.1
 DEPENDS = autoconf
 
 TOPDIR  = ../..
