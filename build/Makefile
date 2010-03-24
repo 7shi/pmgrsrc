@@ -13,6 +13,7 @@ PACKAGES = \
 	i386-elf \
 	i386-pc-minix \
 	i686-mingw32 \
+	m4 \
 	mercurial \
 	mipsel-elf \
 	mipsel-pe \
