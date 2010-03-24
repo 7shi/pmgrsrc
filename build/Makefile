@@ -1,5 +1,6 @@
 PACKAGES = \
 	arm-linux-gnueabi \
+	arm-pe \
 	autoconf \
 	automake \
 	cvs \

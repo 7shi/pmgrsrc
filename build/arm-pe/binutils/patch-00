@@ -1,0 +1,16 @@
+--- binutils/dlltool.c.orig	2010-02-14 09:22:56.000000000 +0900
++++ binutils/dlltool.c	2010-02-14 09:23:14.000000000 +0900
+@@ -241,9 +241,12 @@
+ 
+ #define show_allnames 0
+ 
++#include "sysdep.h"
++#ifdef PAGE_SIZE
++#undef PAGE_SIZE
++#endif
+ #define PAGE_SIZE ((bfd_vma) 4096)
+ #define PAGE_MASK ((bfd_vma) (-4096))
+-#include "sysdep.h"
+ #include "bfd.h"
+ #include "libiberty.h"
+ #include "getopt.h"
