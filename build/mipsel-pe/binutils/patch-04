@@ -1,15 +1,12 @@
---- gas/ecoff.c.orig	2010-03-13 18:55:42.000000000 +0900
-+++ gas/ecoff.c	2010-03-13 18:58:44.000000000 +0900
-@@ -5232,4 +5232,12 @@
- {
- }
+--- gas/config/tc-mips.c.orig	2010-03-26 01:32:42.000000000 +0900
++++ gas/config/tc-mips.c	2010-03-26 01:33:20.000000000 +0900
+@@ -1197,7 +1197,9 @@
+   {"text", s_change_sec, 't'},
+   {"word", s_cons, 2},
  
-+void
-+ecoff_directive_extern (int);
-+
-+void
-+ecoff_directive_extern (int ignore ATTRIBUTE_UNUSED)
-+{
-+}
-+
- #endif /* ECOFF_DEBUGGING */
++#ifdef MIPS_STABS_ELF
+   { "extern", ecoff_directive_extern, 0},
++#endif
+ 
+   { NULL, NULL, 0 },
+ };
