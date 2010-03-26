@@ -1,0 +1,11 @@
+--- bfd/peicode.h.orig	2010-03-26 20:12:53.000000000 +0900
++++ bfd/peicode.h	2010-03-26 20:13:17.000000000 +0900
+@@ -960,7 +960,7 @@
+ 	  pe_ILF_make_a_symbol_reloc (&vars, (bfd_vma) 0, BFD_RELOC_HI16_S,
+ 				      (struct bfd_symbol **) imp_sym,
+ 				      imp_index);
+-	  pe_ILF_make_a_reloc (&vars, (bfd_vma) 0, BFD_RELOC_LO16, text);
++	  /*pe_ILF_make_a_reloc (&vars, (bfd_vma) 0, BFD_RELOC_LO16, text);*/
+ 	  pe_ILF_make_a_symbol_reloc (&vars, (bfd_vma) 4, BFD_RELOC_LO16,
+ 				      (struct bfd_symbol **) imp_sym,
+ 				      imp_index);

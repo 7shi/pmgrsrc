@@ -1,0 +1,26 @@
+--- ld/emultempl/pe.em.orig	2010-03-26 20:50:29.000000000 +0900
++++ ld/emultempl/pe.em	2010-03-26 20:52:49.000000000 +0900
+@@ -100,7 +100,7 @@
+ #define DLL_SUPPORT
+ #endif
+ 
+-#if defined(TARGET_IS_i386pe) || ! defined(DLL_SUPPORT)
++#if defined(TARGET_IS_i386pe) || defined(TARGET_IS_mipspe) || ! defined(DLL_SUPPORT)
+ #define	PE_DEF_SUBSYSTEM		3
+ #else
+ #undef NT_EXE_IMAGE_BASE
+@@ -1176,13 +1176,12 @@
+     || defined (TARGET_IS_arm_epoc_pe) \
+     || defined (TARGET_IS_arm_wince_pe)
+   if (!link_info.relocatable)
+-    pe_dll_build_sections (link_info.output_bfd, &link_info);
+ #else
+   if (link_info.shared)
++#endif
+     pe_dll_build_sections (link_info.output_bfd, &link_info);
+   else
+     pe_exe_build_sections (link_info.output_bfd, &link_info);
+-#endif
+ #endif /* DLL_SUPPORT */
+ 
+ #if defined(TARGET_IS_armpe) || defined(TARGET_IS_arm_epoc_pe) || defined(TARGET_IS_arm_wince_pe)
