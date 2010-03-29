@@ -1,0 +1,13 @@
+--- gcc/config.gcc.orig	2010-03-29 17:07:55.000000000 +0900
++++ gcc/config.gcc	2010-03-29 17:34:50.000000000 +0900
+@@ -1822,6 +1822,10 @@
+ 	tmake_file="mips/t-r3900 mips/t-libgcc-mips16"
+ 	use_fixproto=yes
+ 	;;
++mips*-*-pe)
++	tm_defines="${tm_defines} TARGET_ENDIAN_DEFALUT=0 TARGET_MIPS_PE=1"
++	configure_default_options="{ { NULL, NULL} }"
++	;;
+ mmix-knuth-mmixware)
+ 	need_64bit_hwint=yes
+ 	;;

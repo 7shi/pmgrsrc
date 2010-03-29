@@ -1,0 +1,18 @@
+--- gcc/config/mips/mips.c.orig	2010-03-29 18:43:32.000000000 +0900
++++ gcc/config/mips/mips.c	2010-03-29 18:43:51.000000000 +0900
+@@ -7100,6 +7100,7 @@
+      causes unwanted warnings from the native linker.  */
+   if (!TARGET_IRIX)
+     {
++#ifndef TARGET_MIPS_PE
+       /* Record the ABI itself.  Modern versions of binutils encode
+ 	 this information in the ELF header flags, but GDB needs the
+ 	 information in order to correctly debug binaries produced by
+@@ -7107,6 +7108,7 @@
+ 	 gdb/mips-tdep.c.  */
+       fprintf (asm_out_file, "\t.section .mdebug.%s\n\t.previous\n",
+ 	       mips_mdebug_abi_name ());
++#endif
+ 
+       /* There is no ELF header flag to distinguish long32 forms of the
+ 	 EABI from long64 forms.  Emit a special section to help tools
