@@ -1,0 +1,11 @@
+--- ld/pe-dll.c.orig	2010-03-29 11:06:30.000000000 +0900
++++ ld/pe-dll.c	2010-03-29 13:01:05.000000000 +0900
+@@ -2135,7 +2135,7 @@
+ 	  break;
+ 	case PE_ARCH_mips:
+ 	  quick_reloc (abfd, 0, BFD_RELOC_HI16_S, 2);
+-	  quick_reloc (abfd, 0, BFD_RELOC_LO16, 0); /* MIPS_R_PAIR */
++	  /*quick_reloc (abfd, 0, BFD_RELOC_LO16, 0);*/ /* MIPS_R_PAIR */
+ 	  quick_reloc (abfd, 4, BFD_RELOC_LO16, 2);
+ 	  break;
+ 	case PE_ARCH_arm:
