@@ -1,5 +1,5 @@
---- binutils/dlltool.c.orig	2009-12-14 01:30:46.000000000 +0900
-+++ binutils/dlltool.c	2009-12-14 01:32:54.000000000 +0900
+--- binutils/dlltool.c.orig	2010-03-30 19:49:11.000000000 +0900
++++ binutils/dlltool.c	2010-03-30 22:06:21.000000000 +0900
 @@ -241,6 +241,10 @@
  
  #define show_allnames 0
@@ -11,3 +11,134 @@
  #define PAGE_SIZE ((bfd_vma) 4096)
  #define PAGE_MASK ((bfd_vma) (-4096))
  #include "sysdep.h"
+@@ -573,6 +577,14 @@
+ static bfd_vma ppc_glue_insn = 0x80410004;
+ #endif
+ 
++static const unsigned char mips_jtab[] =
++{
++  0x00, 0x00, 0x08, 0x3c, /* lui $t0,<high:__imp_function> */
++  0x00, 0x00, 0x08, 0x8d, /* lw $t0,<low:__imp_function>   */
++  0x08, 0x00, 0x00, 0x01, /* jr $t0                        */
++  0x00, 0x00, 0x00, 0x00  /* nop                           */
++};
++
+ static const char i386_trampoline[] =  
+   "\tpushl %%ecx\n"
+   "\tpushl %%edx\n"
+@@ -730,6 +742,16 @@
+     i386_dljtab, sizeof (i386_dljtab), 2, 7, 12, i386_trampoline
+   }
+   ,
++  {
++#define MMIPS 12
++    "mips", ".byte", ".short", ".long", ".asciz", "#",
++    "lui\t$t0,*\nlw\t$t0,*\njr\t$t0\nnop",
++    ".global", ".space", ".align\t2",".align\t4", "-EL",
++    "pe-mips",bfd_arch_mips,
++    mips_jtab, sizeof (mips_jtab), 0,
++    0, 0, 0, 0, 0, 0
++  }
++  ,
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+ };
+ 
+@@ -878,6 +900,7 @@
+     case MMCORE_ELF_LE:
+     case MARM_EPOC:
+     case MARM_WINCE:
++    case MMIPS:
+       break;
+     default:
+       /* xgettext:c-format */
+@@ -904,6 +927,7 @@
+     case MMCORE_ELF_LE:
+     case MARM_EPOC:
+     case MARM_WINCE:
++    case MMIPS:
+       return ".rva\t";
+     default:
+       /* xgettext:c-format */
+@@ -928,6 +952,7 @@
+     case MMCORE_ELF_LE:
+     case MARM_EPOC:
+     case MARM_WINCE:
++    case MMIPS:
+       break;
+     case M386:
+     case MX86:
+@@ -2412,7 +2437,7 @@
+   if (! exp->data)
+     {
+       exp_label = bfd_make_empty_symbol (abfd);
+-      exp_label->name = make_imp_label ("", exp->name);
++      exp_label->name = make_imp_label ("", xlate(exp->name));
+ 
+       /* On PowerPC, the function name points to a descriptor in
+ 	 the rdata section, the first element of which is a
+@@ -2512,6 +2537,7 @@
+ 	case TEXT:
+ 	  if (! exp->data)
+ 	    {
++	      int mips = machine == MMIPS ? 1 : 0;
+ 	      si->size = HOW_JTAB_SIZE;
+ 	      si->data = xmalloc (HOW_JTAB_SIZE);
+ 	      memcpy (si->data, HOW_JTAB, HOW_JTAB_SIZE);
+@@ -2519,9 +2545,10 @@
+ 	      /* Add the reloc into idata$5.  */
+ 	      rel = xmalloc (sizeof (arelent));
+ 
+-	      rpp = xmalloc (sizeof (arelent *) * (delay ? 4 : 2));
++	      rpp = xmalloc (sizeof (arelent *) * ((delay ? 4 : 2) + mips));
+ 	      rpp[0] = rel;
+ 	      rpp[1] = 0;
++	      if (mips) rpp[2] = 0;
+ 
+ 	      rel->address = HOW_JTAB_ROFF;
+ 	      rel->addend = 0;
+@@ -2529,14 +2556,14 @@
+ 	      if (delay)
+ 	        {
+ 	          rel2 = xmalloc (sizeof (arelent));
+-	          rpp[1] = rel2;
++	          rpp[1 + mips] = rel2;
+ 	          rel2->address = HOW_JTAB_ROFF2;
+ 	          rel2->addend = 0;
+ 	          rel3 = xmalloc (sizeof (arelent));
+-	          rpp[2] = rel3;
++	          rpp[2 + mips] = rel3;
+ 	          rel3->address = HOW_JTAB_ROFF3;
+ 	          rel3->addend = 0;
+-	          rpp[3] = 0;
++	          rpp[3 + mips] = 0;
+ 	        }
+ 
+ 	      if (machine == MPPC)
+@@ -2551,6 +2578,18 @@
+ 						      BFD_RELOC_32_PCREL);
+ 		  rel->sym_ptr_ptr = iname_pp;
+ 		}
++	      else if (machine == MMIPS)
++		{
++		  arelent *relm = xmalloc (sizeof (arelent));
++		  rpp[1] = relm;
++		  rel->howto = bfd_reloc_type_lookup (abfd,
++						      BFD_RELOC_HI16_S);
++		  rel->sym_ptr_ptr = iname_pp;
++		  relm->address = rel->address + 4;
++		  relm->howto = bfd_reloc_type_lookup (abfd,
++						      BFD_RELOC_LO16);
++		  relm->sym_ptr_ptr = iname_pp;
++		}
+ 	      else
+ 		{
+ 		  rel->howto = bfd_reloc_type_lookup (abfd, BFD_RELOC_32);
+@@ -2566,7 +2605,7 @@
+ 	        }
+ 
+ 	      sec->orelocation = rpp;
+-	      sec->reloc_count = delay ? 3 : 1;
++	      sec->reloc_count = (delay ? 3 : 1) + mips;
+ 	    }
+ 	  break;
+ 

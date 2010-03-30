@@ -1,5 +1,5 @@
---- gas/config/tc-mips.c.orig	2010-03-26 01:32:42.000000000 +0900
-+++ gas/config/tc-mips.c	2010-03-26 01:33:20.000000000 +0900
+--- gas/config/tc-mips.c.orig	2009-09-23 00:41:00.000000000 +0900
++++ gas/config/tc-mips.c	2010-03-30 23:00:44.000000000 +0900
 @@ -1197,7 +1197,9 @@
    {"text", s_change_sec, 't'},
    {"word", s_cons, 2},
@@ -10,3 +10,25 @@
  
    { NULL, NULL, 0 },
  };
+@@ -12638,6 +12640,21 @@
+ 
+   if (now_seg->name != section_name)
+     free (section_name);
++#else
++  char *section_name;
++  char c;
++  char *name;
++
++  section_name = input_line_pointer;
++  c = get_symbol_end ();
++
++  name = xmalloc (input_line_pointer - section_name + 1);
++  strcpy (name, section_name);
++
++  *input_line_pointer = c;
++
++  subseg_new (name, (subsegT) 0);
++  demand_empty_rest_of_line ();
+ #endif /* OBJ_ELF */
+ }
+ 
