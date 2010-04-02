@@ -1,5 +1,5 @@
---- gcc/config/mips/mips.h.orig	2010-03-31 11:56:05.000000000 +0900
-+++ gcc/config/mips/mips.h	2010-03-31 11:59:00.000000000 +0900
+--- gcc/config/mips/mips.h.orig	2008-07-12 17:00:46.000000000 +0900
++++ gcc/config/mips/mips.h	2010-04-02 23:46:36.000000000 +0900
 @@ -976,6 +976,7 @@
     COFF debugging info.  */
  
@@ -28,18 +28,18 @@
  
  #undef CC1_SPEC
 +#ifndef TARGET_MIPS_PE
- #define CC1_SPEC "\
- %{gline:%{!g:%{!g0:%{!g1:%{!g2: -g1}}}}} \
- %{G*} %{EB:-meb} %{EL:-mel} %{EB:%{EL:%emay not use both -EB and -EL}} \
- %{save-temps: } \
- %(subtarget_cc1_spec)"
-+#else
 +#define CC1_SPEC "\
 +%{gline:%{!g:%{!g0:%{!g1:%{!g2: -g1}}}}} \
 +%{G*} %{EB:-meb} %{EL:-mel} %{EB:%{EL:%emay not use both -EB and -EL}} \
-+%{!fshort-wchar:%{!fno-short-wchar:-fshort-wchar}} \
 +%{save-temps: } \
 +%(subtarget_cc1_spec)"
++#else
+ #define CC1_SPEC "\
+ %{gline:%{!g:%{!g0:%{!g1:%{!g2: -g1}}}}} \
+ %{G*} %{EB:-meb} %{EL:-mel} %{EB:%{EL:%emay not use both -EB and -EL}} \
++%{!fshort-wchar:%{!fno-short-wchar:-fshort-wchar}} \
+ %{save-temps: } \
+ %(subtarget_cc1_spec)"
 +#endif
  
  /* Preprocessor specs.  */
@@ -88,3 +88,15 @@
  
  #ifndef FUNCTION_NAME_ALREADY_DECLARED
  #define FUNCTION_NAME_ALREADY_DECLARED 0
+@@ -3048,3 +3088,11 @@
+ extern const struct mips_rtx_cost_data *mips_cost;
+ extern enum mips_code_readable_setting mips_code_readable;
+ #endif
++
++#ifdef TARGET_MIPS_PE
++
++/* Switch into a generic section.  */
++#undef TARGET_ASM_NAMED_SECTION
++#define TARGET_ASM_NAMED_SECTION  default_pe_asm_named_section
++
++#endif

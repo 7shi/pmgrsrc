@@ -1,0 +1,12 @@
+--- gcc/varasm.c.orig	2009-01-11 23:33:28.000000000 +0900
++++ gcc/varasm.c	2010-04-02 23:51:46.000000000 +0900
+@@ -2596,7 +2596,9 @@
+       gcc_assert (!i);
+     }
+ 
++#ifndef TARGET_MIPS_PE
+   gcc_assert (!force);
++#endif
+ 
+   return false;
+ }

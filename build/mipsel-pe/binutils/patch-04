@@ -1,5 +1,5 @@
 --- gas/config/tc-mips.c.orig	2009-09-23 00:41:00.000000000 +0900
-+++ gas/config/tc-mips.c	2010-04-02 13:25:34.000000000 +0900
++++ gas/config/tc-mips.c	2010-04-02 23:36:39.000000000 +0900
 @@ -1197,7 +1197,9 @@
    {"text", s_change_sec, 't'},
    {"word", s_cons, 2},
@@ -20,25 +20,38 @@
  
    buf = (bfd_byte *) (fixP->fx_frag->fr_literal + fixP->fx_where);
  
-@@ -12638,6 +12641,21 @@
+@@ -12569,10 +12572,10 @@
+ void
+ s_change_section (int ignore ATTRIBUTE_UNUSED)
+ {
+-#ifdef OBJ_ELF
+   char *section_name;
+   char c;
+   char next_c = 0;
++#ifdef OBJ_ELF
+   int section_type;
+   int section_flag;
+   int section_entry_size;
+@@ -12580,6 +12583,7 @@
  
-   if (now_seg->name != section_name)
-     free (section_name);
+   if (!IS_ELF)
+     return;
++#endif
+ 
+   section_name = input_line_pointer;
+   c = get_symbol_end ();
+@@ -12592,9 +12596,14 @@
+       /* just after name is now '\0'.  */
+       *input_line_pointer = c;
+       input_line_pointer = section_name;
++#ifdef OBJ_ELF
+       obj_elf_section (ignore);
 +#else
-+  char *section_name;
-+  char c;
-+  char *name;
-+
-+  section_name = input_line_pointer;
-+  c = get_symbol_end ();
-+
-+  name = xmalloc (input_line_pointer - section_name + 1);
-+  strcpy (name, section_name);
-+
-+  *input_line_pointer = c;
-+
-+  subseg_new (name, (subsegT) 0);
-+  demand_empty_rest_of_line ();
- #endif /* OBJ_ELF */
- }
++      obj_coff_section (ignore);
++#endif
+       return;
+     }
++#ifdef OBJ_ELF
+   input_line_pointer++;
  
+   /* Do we have .section Name<,type><,flag><,entry_size><,alignment>  */
