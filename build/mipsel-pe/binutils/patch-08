@@ -1,6 +1,81 @@
 --- bfd/pe-mips.c.orig	2009-02-19 03:23:07.000000000 +0900
-+++ bfd/pe-mips.c	2010-04-02 13:25:10.000000000 +0900
-@@ -498,6 +498,9 @@
++++ bfd/pe-mips.c	2010-04-03 07:52:18.000000000 +0900
+@@ -151,6 +151,48 @@
+ }
+ #endif
+ 
++/* ECOFF relocs are either against external symbols, or against
++   sections.  If we are producing relocatable output, and the reloc
++   is against an external symbol, and nothing has given us any
++   additional addend, the resulting reloc will also be against the
++   same symbol.  In such a case, we don't want to change anything
++   about the way the reloc is handled, since it will all be done at
++   final link time.  Rather than put special case code into
++   bfd_perform_relocation, all the reloc types use this howto
++   function.  It just short circuits the reloc if producing
++   relocatable output against an external symbol.  */
++
++static bfd_reloc_status_type mips_generic_reloc
++  PARAMS ((bfd *abfd, arelent *reloc, asymbol *symbol, PTR data,
++	   asection *section, bfd *output_bfd, char **error));
++
++static bfd_reloc_status_type
++mips_generic_reloc (abfd,
++		    reloc_entry,
++		    symbol,
++		    data,
++		    input_section,
++		    output_bfd,
++		    error_message)
++     bfd *abfd ATTRIBUTE_UNUSED;
++     arelent *reloc_entry;
++     asymbol *symbol;
++     PTR data ATTRIBUTE_UNUSED;
++     asection *input_section;
++     bfd *output_bfd;
++     char **error_message ATTRIBUTE_UNUSED;
++{
++  if (output_bfd != (bfd *) NULL
++      && (symbol->flags & BSF_SECTION_SYM) == 0
++      && reloc_entry->addend == 0)
++    {
++      reloc_entry->address += input_section->output_offset;
++      return bfd_reloc_ok;
++    }
++
++  return bfd_reloc_continue;
++}
++
+ #ifndef PCRELOFFSET
+ #define PCRELOFFSET FALSE
+ #endif
+@@ -291,7 +333,24 @@
+   EMPTY_HOWTO (11),
+   EMPTY_HOWTO (12),
+   EMPTY_HOWTO (13),
+-  EMPTY_HOWTO (14),
++
++  /* FIXME: This relocation is used (internally only) to represent branches
++     when assembling.  It should never appear in output files, and
++     be removed.  (It used to be used for embedded-PIC support.)  */
++  HOWTO (MIPS_R_PCREL16,	/* type */
++	 2,			/* rightshift */
++	 2,			/* size (0 = byte, 1 = short, 2 = long) */
++	 16,			/* bitsize */
++	 TRUE,			/* pc_relative */
++	 0,			/* bitpos */
++	 complain_overflow_signed, /* complain_on_overflow */
++	 mips_generic_reloc,	/* special_function */
++	 "PCREL16",		/* name */
++	 TRUE,			/* partial_inplace */
++	 0xffff,		/* src_mask */
++	 0xffff,		/* dst_mask */
++	 TRUE),			/* pcrel_offset */
++
+   EMPTY_HOWTO (15),
+   EMPTY_HOWTO (16),
+   EMPTY_HOWTO (17),
+@@ -498,6 +557,9 @@
      case BFD_RELOC_RVA:
        mips_type = MIPS_R_RVA;
        break;
