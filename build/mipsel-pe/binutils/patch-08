@@ -1,0 +1,12 @@
+--- bfd/pe-mips.c.orig	2009-02-19 03:23:07.000000000 +0900
++++ bfd/pe-mips.c	2010-04-02 13:25:10.000000000 +0900
+@@ -498,6 +498,9 @@
+     case BFD_RELOC_RVA:
+       mips_type = MIPS_R_RVA;
+       break;
++    case BFD_RELOC_16_PCREL_S2:
++      mips_type = MIPS_R_PCREL16;
++      break;
+     default:
+       return NULL;
+     }

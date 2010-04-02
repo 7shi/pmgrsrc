@@ -1,5 +1,5 @@
 --- gas/config/tc-mips.c.orig	2009-09-23 00:41:00.000000000 +0900
-+++ gas/config/tc-mips.c	2010-03-30 23:00:44.000000000 +0900
++++ gas/config/tc-mips.c	2010-04-02 13:25:34.000000000 +0900
 @@ -1197,7 +1197,9 @@
    {"text", s_change_sec, 't'},
    {"word", s_cons, 2},
@@ -10,7 +10,17 @@
  
    { NULL, NULL, 0 },
  };
-@@ -12638,6 +12640,21 @@
+@@ -12224,7 +12226,8 @@
+ 	  || fixP->fx_r_type == BFD_RELOC_MIPS_SUB
+ 	  || fixP->fx_r_type == BFD_RELOC_VTABLE_INHERIT
+ 	  || fixP->fx_r_type == BFD_RELOC_VTABLE_ENTRY
+-	  || fixP->fx_r_type == BFD_RELOC_MIPS_TLS_DTPREL64);
++	  || fixP->fx_r_type == BFD_RELOC_MIPS_TLS_DTPREL64
++	  || fixP->fx_r_type == BFD_RELOC_16_PCREL_S2);
+ 
+   buf = (bfd_byte *) (fixP->fx_frag->fr_literal + fixP->fx_where);
+ 
+@@ -12638,6 +12641,21 @@
  
    if (now_seg->name != section_name)
      free (section_name);
