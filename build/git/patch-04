@@ -1,0 +1,19 @@
+--- git_remote_helpers/Makefile.orig	2010-04-03 09:06:19.000000000 +0900
++++ git_remote_helpers/Makefile	2010-04-03 09:07:25.000000000 +0900
+@@ -7,14 +7,14 @@
+ DESTDIR_SQ = $(subst ','\'',$(DESTDIR))
+ 
+ ifndef PYTHON_PATH
+-	PYTHON_PATH = /usr/bin/python
++	PYTHON_PATH = python
+ endif
+ ifndef prefix
+ 	prefix = $(HOME)
+ endif
+ ifndef V
+ 	QUIET = @
+-	QUIETSETUP = --quiet
++	#QUIETSETUP = --quiet
+ endif
+ 
+ PYLIBDIR=$(shell $(PYTHON_PATH) -c \

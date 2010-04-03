@@ -1,5 +1,5 @@
 PKGNAME = git
-PKGVER  = 1.6.5.7
+PKGVER  = 1.7.0.4
 BLDDEPS = ginstall
 
 TOPDIR  = ../..

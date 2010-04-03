@@ -1,5 +1,5 @@
---- daemon.c.orig	2009-12-24 15:21:27.000000000 +0900
-+++ daemon.c	2009-12-24 15:39:44.000000000 +0900
+--- daemon.c.orig	2010-04-03 08:26:16.000000000 +0900
++++ daemon.c	2010-04-03 08:35:44.000000000 +0900
 @@ -3,6 +3,8 @@
  #include "exec_cmd.h"
  #include "run-command.h"
@@ -9,7 +9,19 @@
  
  #include <syslog.h>
  
-@@ -960,7 +962,7 @@
+@@ -590,9 +592,11 @@
+ static int addrcmp(const struct sockaddr_storage *s1,
+     const struct sockaddr_storage *s2)
+ {
++#ifndef __INTERIX
+ 	if (s1->ss_family != s2->ss_family)
+ 		return s1->ss_family - s2->ss_family;
+ 	if (s1->ss_family == AF_INET)
++#endif
+ 		return memcmp(&((struct sockaddr_in *)s1)->sin_addr,
+ 		    &((struct sockaddr_in *)s2)->sin_addr,
+ 		    sizeof(struct in_addr));
+@@ -952,7 +956,7 @@
  		    listen_addr, listen_port);
  
  	if (pass && gid &&
