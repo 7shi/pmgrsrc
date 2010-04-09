@@ -16,7 +16,7 @@
      targ_defvec=bfd_elf32_bigmips_vec
      targ_selvecs="bfd_elf32_littlemips_vec bfd_elf64_bigmips_vec bfd_elf64_littlemips_vec"
      ;;
-+  mips*-*-pe*)
++  mips*-*-pe* | mips*-*-mingw*)
 +    targ_defvec=mipslpe_vec
 +    targ_selvecs="mipslpe_vec mipslpei_vec"
 +    targ_underscore=yes

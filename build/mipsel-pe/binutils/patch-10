@@ -1,0 +1,11 @@
+--- gas/configure.tgt.orig	2010-04-09 22:48:34.000000000 +0900
++++ gas/configure.tgt	2010-04-09 22:49:13.000000000 +0900
+@@ -287,7 +287,7 @@
+   mips-*-ultrix*)			fmt=ecoff endian=little ;;
+   mips-*-osf*)				fmt=ecoff endian=little ;;
+   mips-*-ecoff*)			fmt=ecoff ;;
+-  mips-*-pe*)				fmt=coff endian=little em=pe ;;
++  mips-*-pe* | mips-*-mingw*)		fmt=coff endian=little em=pe ;;
+   mips-*-irix6*)			fmt=elf em=irix ;;
+   mips-*-irix5*)			fmt=elf em=irix ;;
+   mips-*-irix*)				fmt=ecoff em=irix ;;
