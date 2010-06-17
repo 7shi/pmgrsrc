@@ -1,0 +1,14 @@
+--- gcc/config.gcc.orig	2010-06-18 01:18:49.000000000 +0900
++++ gcc/config.gcc	2010-06-18 01:43:10.000000000 +0900
+@@ -651,6 +651,11 @@
+ 	target_cpu_default="MASK_GAS"
+ 	tmake_file="${tmake_file} alpha/t-alpha alpha/t-ieee"
+ 	;;
++alpha*-*-elf*)
++	tm_file="${tm_file} newlib-stdint.h alpha/elf.h"
++	target_cpu_default="MASK_GAS"
++	tmake_file="${tmake_file} alpha/t-crtfm alpha/t-alpha alpha/t-ieee"
++	;;
+ alpha*-dec-osf[45]*)
+ 	if test x$stabs = xyes
+ 	then

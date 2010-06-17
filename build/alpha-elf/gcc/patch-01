@@ -1,0 +1,11 @@
+--- libgcc/config.host.orig	2010-06-18 02:07:11.000000000 +0900
++++ libgcc/config.host	2010-06-18 02:08:26.000000000 +0900
+@@ -197,6 +197,8 @@
+ alpha*-dec-*vms*)
+ 	tmake_file="vms/t-vms alpha/t-vms"
+ 	;;
++alpha*-*-elf*)
++	;;
+ arc-*-elf*)
+ 	;;
+ arm-wrs-vxworks)

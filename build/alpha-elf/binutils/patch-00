@@ -1,0 +1,11 @@
+--- ld/configure.tgt.orig	2010-06-18 01:02:07.000000000 +0900
++++ ld/configure.tgt	2010-06-18 01:02:47.000000000 +0900
+@@ -39,7 +39,7 @@
+ alpha*-*-gnu*)		targ_emul=elf64alpha ;;
+ alpha*-*-netware*)	targ_emul=alpha ;;
+ alpha*-*-netbsd*)	targ_emul=elf64alpha_nbsd ;;
+-alpha*-*-openbsd*)	targ_emul=elf64alpha
++alpha*-*-openbsd*|alpha*-*-elf*)	targ_emul=elf64alpha
+ 			;;
+ arc-*-elf*)		targ_emul=arcelf
+ 			;;
