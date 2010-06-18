@@ -1,29 +1,13 @@
---- bfd/configure.orig	Wed Nov 25 17:32:45 2009
-+++ bfd/configure	Wed Nov 25 17:34:34 2009
-@@ -17993,7 +17993,7 @@
-     #define _UINT8_T
-     #ifndef __uint8_t_defined
-     #define __uint8_t_defined
--    typedef u_int8_t uint8_t;
-+    /*typedef u_int8_t uint8_t;*/
-     #endif
-     #endif
+--- binutils/dlltool.c.orig	2010-04-20 09:35:03.000000000 +0900
++++ binutils/dlltool.c	2010-04-20 09:37:12.000000000 +0900
+@@ -241,6 +241,10 @@
  
-@@ -18001,7 +18001,7 @@
-     #define _UINT16_T
-     #ifndef __uint16_t_defined
-     #define __uint16_t_defined
--    typedef u_int16_t uint16_t;
-+    /*typedef u_int16_t uint16_t;*/
-     #endif
-     #endif
+ #define show_allnames 0
  
-@@ -18009,7 +18009,7 @@
-     #define _UINT32_T
-     #ifndef __uint32_t_defined
-     #define __uint32_t_defined
--    typedef u_int32_t uint32_t;
-+    /*typedef u_int32_t uint32_t;*/
-     #endif
-     #endif
- EOF
++#ifdef __INTERIX
++#include <limits.h>
++#undef PAGE_SIZE
++#endif
+ #define PAGE_SIZE ((bfd_vma) 4096)
+ #define PAGE_MASK ((bfd_vma) (-4096))
+ #include "sysdep.h"
