@@ -1,4 +1,5 @@
 PACKAGES = \
+	alpha-elf \
 	arm-linux-gnueabi \
 	arm-pe \
 	autoconf \
@@ -6,8 +7,10 @@ PACKAGES = \
 	cvs \
 	distorm \
 	file \
+	gawk \
 	ginstall \
 	git \
+	gmp \
 	gtar \
 	gxemul \
 	i386-elf \
@@ -18,6 +21,8 @@ PACKAGES = \
 	mipsel-elf \
 	mipsel-pe \
 	mkisofs \
+	mpc \
+	mpfr \
 	openssh \
 	python \
 	subversion \
