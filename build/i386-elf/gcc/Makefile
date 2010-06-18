@@ -1,5 +1,5 @@
 PKGNAME = $(ARCH_PREFIX)-gcc
-PKGVER  = 4.3.4
+PKGVER  = 4.5.0
 DEPENDS = $(ARCH_PREFIX)/binutils
 
 include ../cross.mk
@@ -22,10 +22,11 @@ do-config:
 	cd $(WORKDIR)/build && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" ../configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
-	cd $(WORKDIR)/build && make CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" all-target-libgcc
+	cd $(WORKDIR)/build && make CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" all-gcc
+	#cd $(WORKDIR)/build && make CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS="-L$(PKGDEST)/lib -Wl,-R$(PKGDEST)/lib" all-target-libgcc
 
 do-pkginst:
 	cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install-gcc
-	cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install-target-libgcc
+	#cd $(WORKDIR)/build && make prefix=`pwd`/../../dest install-target-libgcc
 	for exe in c++ cpp g++ gcc gcc-$(PKGVER) gcov; do strip dest/bin/$(ARCH_PREFIX)-$$exe; done
 	strip dest/libexec/gcc/$(ARCH_PREFIX)/$(PKGVER)/[cj]*
