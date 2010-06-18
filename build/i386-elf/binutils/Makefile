@@ -1,5 +1,5 @@
 PKGNAME = $(ARCH_PREFIX)-binutils
-PKGVER  = 2.20
+PKGVER  = 2.20.1
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
