@@ -1,6 +1,6 @@
 PKGNAME = git
-PKGVER  = 1.7.0.4
-BLDDEPS = ginstall
+PKGVER  = 1.7.1.1
+BLDDEPS = ginstall python
 
 TOPDIR  = ../..
 include $(TOPDIR)/common.mk
@@ -15,7 +15,7 @@ do-extract: std-extract
 do-patch: #fix-configure
 
 do-config:
-	cd $(WORKDIR) && CC=gcc ./configure --prefix=$(PKGDEST)
+	cd $(WORKDIR) && CC=gcc ./configure --prefix=$(PKGDEST) --without-tcltk
 
 do-build:
 	cd $(WORKDIR) && make

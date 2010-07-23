@@ -1,6 +1,6 @@
---- git-compat-util.h.orig	2010-04-03 08:21:34.000000000 +0900
-+++ git-compat-util.h	2010-04-03 08:21:47.000000000 +0900
-@@ -93,7 +93,13 @@
+--- git-compat-util.h.orig	2010-07-22 21:08:46.000000000 +0900
++++ git-compat-util.h	2010-07-22 21:08:53.000000000 +0900
+@@ -94,7 +94,13 @@
  #include <utime.h>
  #ifndef __MINGW32__
  #include <sys/wait.h>
@@ -14,7 +14,7 @@
  #include <sys/socket.h>
  #include <sys/ioctl.h>
  #include <termios.h>
-@@ -105,7 +111,14 @@
+@@ -106,7 +112,14 @@
  #include <arpa/inet.h>
  #include <netdb.h>
  #include <pwd.h>
@@ -29,7 +29,7 @@
  #if defined(__CYGWIN__)
  #undef _XOPEN_SOURCE
  #include <grp.h>
-@@ -444,7 +457,7 @@
+@@ -463,7 +476,7 @@
  # define FORCE_DIR_SET_GID 0
  #endif
  

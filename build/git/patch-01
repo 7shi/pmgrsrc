@@ -1,6 +1,6 @@
---- Makefile.orig	2010-04-03 09:14:20.000000000 +0900
-+++ Makefile	2010-04-03 09:14:47.000000000 +0900
-@@ -415,7 +415,7 @@
+--- Makefile.orig	2010-07-22 21:10:14.000000000 +0900
++++ Makefile	2010-07-22 21:10:20.000000000 +0900
+@@ -447,7 +447,7 @@
  	PERL_PATH = /usr/bin/perl
  endif
  ifndef PYTHON_PATH
@@ -9,7 +9,7 @@
  endif
  
  export PERL_PATH
-@@ -1140,7 +1140,7 @@
+@@ -1193,7 +1193,7 @@
  	EXTLIBS += $(ICONV_LINK) -liconv
  endif
  ifdef NEEDS_LIBGEN
@@ -18,7 +18,7 @@
  endif
  ifdef NEEDS_SOCKET
  	EXTLIBS += -lsocket
-@@ -1149,7 +1149,7 @@
+@@ -1202,7 +1202,7 @@
  	EXTLIBS += -lnsl
  endif
  ifdef NEEDS_RESOLV

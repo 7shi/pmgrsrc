@@ -1,13 +1,13 @@
---- notes.c.orig	2010-04-03 08:27:38.000000000 +0900
-+++ notes.c	2010-04-03 08:28:29.000000000 +0900
-@@ -51,6 +51,10 @@
- #define SUBTREE_SHA1_PREFIXCMP(key_sha1, subtree_sha1) \
- 	(memcmp(key_sha1, subtree_sha1, subtree_sha1[19]))
+--- notes.c.orig	2010-07-22 21:17:36.000000000 +0900
++++ notes.c	2010-07-22 21:18:53.000000000 +0900
+@@ -59,6 +59,10 @@
+ #define PTR_TYPE_NOTE     2
+ #define PTR_TYPE_SUBTREE  3
  
 +#ifdef __INTERIX
 +typedef unsigned long uintptr_t;
 +#endif
 +
- static struct int_node root_node;
- 
- static int initialized;
+ #define GET_PTR_TYPE(ptr)       ((uintptr_t) (ptr) & 3)
+ #define CLR_PTR_TYPE(ptr)       ((void *) ((uintptr_t) (ptr) & ~3))
+ #define SET_PTR_TYPE(ptr, type) ((void *) ((uintptr_t) (ptr) | (type)))

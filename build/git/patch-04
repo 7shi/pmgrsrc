@@ -1,14 +1,15 @@
---- git_remote_helpers/Makefile.orig	2010-04-03 09:06:19.000000000 +0900
-+++ git_remote_helpers/Makefile	2010-04-03 09:07:25.000000000 +0900
-@@ -7,14 +7,14 @@
- DESTDIR_SQ = $(subst ','\'',$(DESTDIR))
- 
- ifndef PYTHON_PATH
--	PYTHON_PATH = /usr/bin/python
-+	PYTHON_PATH = python
+--- git_remote_helpers/Makefile.orig	2010-07-22 21:19:58.000000000 +0900
++++ git_remote_helpers/Makefile	2010-07-22 21:20:39.000000000 +0900
+@@ -10,7 +10,7 @@
+ 	ifeq ($(uname_S),FreeBSD)
+ 		PYTHON_PATH = /usr/local/bin/python
+ 	else
+-		PYTHON_PATH = /usr/bin/python
++		PYTHON_PATH = python
+ 	endif
  endif
  ifndef prefix
- 	prefix = $(HOME)
+@@ -18,7 +18,7 @@
  endif
  ifndef V
  	QUIET = @
