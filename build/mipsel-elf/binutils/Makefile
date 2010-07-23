@@ -1,5 +1,5 @@
 PKGNAME = $(ARCH_PREFIX)-binutils
-PKGVER  = 2.20
+PKGVER  = 2.20.1
 
 include ../cross.mk
 TOPDIR  = $(TOPDIR_)/..
@@ -15,7 +15,7 @@ do-extract: std-extract
 do-patch: #fix-configure
 
 do-config:
-	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX) --enable-64bit-bfd
+	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib ./configure --prefix=$(PKGDEST) --target=$(ARCH_PREFIX)
 
 do-build:
 	cd $(WORKDIR) && CPPFLAGS="-D_ALL_SOURCE -I$(PKGDEST)/include" LDFLAGS=-Wl,-R$(PKGDEST)/lib make
