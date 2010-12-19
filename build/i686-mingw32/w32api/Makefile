@@ -8,7 +8,7 @@ include $(TOPDIR)/pmgr.mk
 
 WORKDIR = 
 SOURCES = w32api-$(PKGVER)-mingw32-dev.tar.gz
-SRCURL  = http://jaist.dl.sourceforge.net/project/mingw/MinGW%20API%20for%20MS-Windows/w32api-$(PKGVER)
+SRCURL  = http://sourceforge.net/projects/mingw/files/MinGW/BaseSystem/RuntimeLibrary/Win32-API/w32api-$(PKGVER)
 
 do-fetch: std-fetch
 do-extract:
