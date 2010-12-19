@@ -1,5 +1,5 @@
 PKGNAME = mercurial
-PKGVER  = 1.3.1
+PKGVER  = 1.6.4
 DEPENDS = python
 
 TOPDIR  = ../..
